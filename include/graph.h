@@ -12,6 +12,7 @@ namespace galplib{
     public:
         Graph randomGraph(double p, unsigned int size);
         Graph(std::vector<std::vector<unsigned int>> & input, unsigned int nodes);
+        std::vector<unsigned int> computePath(const std::vector<unsigned int> & prefs);
         int getEdge(unsigned int i, unsigned int j);
     private:
         std::vector<std::unordered_map<unsigned int, int>> edges;

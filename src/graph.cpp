@@ -4,6 +4,7 @@
 
 #include "../include/graph.h"
 #include <stdexcept>
+#include <unordered_set>
 
 namespace galplib {
     bool compareIndex(std::vector<unsigned int> I1, std::vector<unsigned int> I2){
@@ -37,4 +38,23 @@ namespace galplib {
         }
         return -1;
     }
+
+    std::vector<unsigned int> Graph::computePath(const std::vector<unsigned int> & prefs){
+        std::unordered_set<unsigned int> visited = std::unordered_set<unsigned int>(prefs.size());
+        unsigned int current = prefs[0];
+        std::vector<unsigned int> path{0};
+        while (true) {
+            visited.insert(current);
+            path.push_back(current);
+            int w = getEdge(current, prefs[current]);
+            if (w >= 0 && !visited.contains(prefs[current])){
+                path[0] +=w;
+                current = prefs[current];
+                continue;
+            }
+            break;
+        }
+        return path;
+    }
+
 }
