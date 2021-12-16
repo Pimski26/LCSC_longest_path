@@ -189,15 +189,37 @@ namespace gal {
         std::vector<double> fitness(const std::vector<double> &objectives) const {
             if (fitness_b <= fitness_a)
                 throw std::logic_error("Fitness values are incorrect.");
+            // Implementation in accordance with CB section 4.1.1
+            // Find minimum and maximum objective function values
+            double max = -INFINITY;
+            double min = INFINITY;
+            for(auto obj_it = objectives.begin(); obj_it!= objectives.end(); obj_it++){
+                if(*obj_it > max){
+                    max = *obj_it;
+                }
+                if(*obj_it < min){
+                    min = *obj_it;
+                }
+            }
 
-            throw RequiresImplementationError(std::string(R"(
-                Compute fitness of the members using a vector of objectives
-                [f(x_0), f(x_1), ...], see CB section 4.1.1.
+            // Return vector with only values fitness_b if min and max are equal
+            if(min == max){
+                std::vector<double> fitness;
+                for(auto obj_it = objectives.begin(); obj_it!= objectives.end(); obj_it++){
+                    fitness.push_back(fitness_b);
+                }
+                return fitness;
+            }
+            else {
+                // Calculate CB section 4.1.1 formula 4.6
+                std::vector<double> fitness;
+                for (auto obj_it = objectives.begin(); obj_it != objectives.end(); obj_it++) {
+                    double fitness_val = fitness_a + (fitness_b - fitness_a) * ((*obj_it - min) / (max - min));
+                    fitness.push_back(fitness_val);
+                }
 
-                Hint: Use the members `fitness_a` and `fitness_b` in the
-                class. Normalize the resulting vector so that the sum of
-                fitness values is 1. Mind the special case f+ equals f-.
-            )"));
+                return fitness;
+            }
         }
 
         /**
