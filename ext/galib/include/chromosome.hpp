@@ -50,7 +50,7 @@ namespace gal {
          */
         virtual std::string getBitstringText() const {
             std::string str;
-            for(std::list<char>::const_iterator it = bits_.begin(); it != bits_.end(); it++) {
+            for(std::list<char>::const_iterator it = bits_.begin(); it != bits_.end(); it++){
                 str += *it;
             }
             return str;
@@ -65,9 +65,20 @@ namespace gal {
             if (probability < 0.0 || probability > 1.0)
                 throw std::invalid_argument("Mutation probability has to be in [0.0, 1.0].");
 
-            throw RequiresImplementationError(std::string(R"(
-                Mutate bits with probability `probability`.
-            )"));
+            for(std::list<char>::iterator it = bits_.begin(); it != bits_.end(); it++){
+                // Generate a random double in [0.0, 1.0]
+                double mutation_roll = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
+                // Determine if we mutate this bit
+                if(mutation_roll <= probability){
+                    // Flip the bit between 0 and 1
+                    if(*it == 0){
+                        *it = 1;
+                    }
+                    else{
+                        *it = 0;
+                    }
+                }
+            }
         }
 
         /**
