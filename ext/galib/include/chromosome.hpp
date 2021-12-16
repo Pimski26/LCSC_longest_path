@@ -51,7 +51,7 @@ namespace gal {
         virtual std::string getBitstringText() const {
             std::string str;
             for(std::list<char>::const_iterator it = bits_.begin(); it != bits_.end(); it++){
-                str += *it;
+                str += std::to_string(*it);
             }
             return str;
         }
