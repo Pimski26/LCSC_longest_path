@@ -137,19 +137,57 @@ namespace gal {
          *   2. crossover on selected chromosomes to produce offspring
          */
         std::vector<C> reproduce(const std::vector<C> &population,
-                                 const std::vector<double> &objectives) const {
+                                 const std::vector<double> &objectives,
+                                 const unsigned int nr_of_elites = 0) const {
             auto population_fitness = fitness(objectives);
             double total_fitness = std::reduce(population_fitness.begin(), population_fitness.end());
             std::vector<C> next_generation;
             next_generation.reserve(population.size());
 
+
+            // Check there are not more elites than the size of the population
+            if(nr_of_elites > population.size()){
+                throw std::logic_error("The nr of elites can at most be the size of the population.");
+            }
+
+            // Create list of numbers 0,1,...,population.size()-1
+            // Sort these population indices by objective values of corresponding chromosomes
+            std::vector<int> chromo_indices_by_obj;
+            for(int i = 0; i < population.size(); i++){
+                chromo_indices_by_obj.push_back(i);
+            }
+            // TODO: Verify this stuff works
+            sort(chromo_indices_by_obj.begin(), chromo_indices_by_obj.end(),
+                 [&objectives](int a, int b) {
+                     return (objectives[a] > objectives[b]);
+                 }
+            );
+
+            std::vector<C> sorted_population;
+            for(int chromo_index :chromo_indices_by_obj){
+                sorted_population.push_back(population[chromo_index]);
+            }
+
             std::vector<C> parents;
             std::vector<C> children;
+
+
+            // Keep track of the number of elites we already added to next generation
+            unsigned int elite_index = 0;
+            // If there are elites, add all of them
+            while(elite_index < nr_of_elites && next_generation.size() < population.size()){
+                // TODO: Allow elites to be parents
+                // TODO: Exempt elites from mutation
+                next_generation.push_back(sorted_population[elite_index]);
+                elite_index++;
+            }
+
 
             while(next_generation.size() < population.size()){
                 // Empty vectors of parents and children
                 parents = std::vector<C>();
                 children = std::vector<C>();
+
 
                 while(parents.size() < 2 && next_generation.size() < population.size()){
                     int survivor_index = select(population_fitness, total_fitness);
