@@ -40,9 +40,19 @@ namespace gal {
          * Returns the decimal value that the bitstring represents.
          */
         int getValue() const override {
+            unsigned int total = 0;
+            unsigned int exponent = 0;
+            for(std::list<char>::const_iterator it = bits_.begin(); it != bits_.end(); it++){
+                if(*it == 1){
+                    total += pow(2,exponent);
+                }
+                exponent++;
+            }
+            /*
             throw RequiresImplementationError(std::string(R"(
                 Compute the decimal value of the chromosome bits here.
             )"));
+            */
         }
     };
 }

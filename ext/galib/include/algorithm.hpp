@@ -143,18 +143,6 @@ namespace gal {
             std::vector<C> next_generation;
             next_generation.reserve(population.size());
 
-            /*
-            throw RequiresImplementationError(std::string(R"(
-                Produce offspring by first selecting parents according to
-                fitness, and then randomly combining them using crossover.
-                Use `crossover_probability_`.
-
-                To copy a BitstringChromosome, you could use the following syntax:
-                    auto child = C(parent); // child is of type C
-                This calls the so-called copy constructor of the chromosome.
-            )"));
-            */
-
             std::vector<C> parents;
             std::vector<C> children;
 
@@ -192,18 +180,7 @@ namespace gal {
                 }
 
             }
-            /**
-             * Pseudo code:
-             *
-             * while (next_generation not full)
-             *     while (nr. of parents < 2 && generation not full)
-             *         - select() a survivor, add to next generation.
-             *         - Allow the survivor to be a parent with rate `crossover_probability_`.
-             *
-             *     while (nr. of children < 2 && generation not full)
-             *         - Create two copies of parents.
-             *         - Crossover the copies to create children, add one to the next generation.
-             */
+
         }
 
         /**
