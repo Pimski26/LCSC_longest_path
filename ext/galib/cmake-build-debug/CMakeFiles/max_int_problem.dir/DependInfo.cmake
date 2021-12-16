@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/app/max_int_problem/main.cpp" "/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/CMakeFiles/max_int_problem.dir/app/max_int_problem/main.cpp.o"
+  "/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/app/max_int_problem/main.cpp" "/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/CMakeFiles/max_int_problem.dir/app/max_int_problem/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

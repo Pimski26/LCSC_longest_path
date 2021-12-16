@@ -8,43 +8,43 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="max_int_problem">
-				<Option output="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/max_int_problem" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug"/>
+				<Option output="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/max_int_problem" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/include"/>
+					<Add directory="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/include"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -54,20 +54,20 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 max_int_problem"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 max_int_problem"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="max_int_problem/fast">
-				<Option output="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/max_int_problem" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug"/>
+				<Option output="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/max_int_problem" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/include"/>
+					<Add directory="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/include"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -77,20 +77,20 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 max_int_problem/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 max_int_problem/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/app/max_int_problem/main.cpp">
+		<Unit filename="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/app/max_int_problem/main.cpp">
 			<Option target="max_int_problem"/>
 		</Unit>
-		<Unit filename="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/app/max_int_problem/main.hpp">
+		<Unit filename="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/app/max_int_problem/main.hpp">
 			<Option target="max_int_problem"/>
 		</Unit>
-		<Unit filename="/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/CMakeLists.txt">
+		<Unit filename="/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

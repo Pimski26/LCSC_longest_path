@@ -1,3 +1,3 @@
-/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/CMakeFiles/max_int_problem.dir
+/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/CMakeFiles/max_int_problem.dir

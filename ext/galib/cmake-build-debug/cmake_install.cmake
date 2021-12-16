@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib
+# Install script for directory: /mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

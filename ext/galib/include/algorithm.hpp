@@ -164,16 +164,7 @@ namespace gal {
                 children = std::vector<C>();
 
                 while(parents.size() < 2 && next_generation.size() < population.size()){
-                    // Use roulette method to select survivor
-                    float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/total_fitness));
-                    float roulette_test = 0;
-                    auto survivor_index = 0;
-
-                    while(roulette_test <= roulette){
-                        float add_to_roulette_test = population_fitness[survivor_index];
-                        survivor_index++;
-                        roulette_test += add_to_roulette_test;
-                    }
+                    int survivor_index = select(population_fitness, total_fitness);
 
                     // Add survivor as parent with cross_over_probability_
                     float cross_over_rand = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX));
@@ -251,15 +242,18 @@ namespace gal {
          * @return The index in `population_fitness_` vector.
          */
         int select(std::vector<double> &population_fitness, double &total_fitness) const {
-            throw RequiresImplementationError(std::string(R"(
-                Use roulette wheel selection to select a member for
-                the next generation (CB section 4.1.2).
+            // Use roulette method to select survivor
+            float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/total_fitness));
+            float roulette_test = 0;
+            int survivor_index = 0;
 
-                Hint: update `population_fitness` and `total_fitness`
-                to have a fair selection in the next draw, and to
-                prevent an already selected chromosome to be selected
-                again.
-            )"));
+            while(roulette_test <= roulette){
+                float add_to_roulette_test = population_fitness[survivor_index];
+                survivor_index++;
+                roulette_test += add_to_roulette_test;
+            }
+
+            return survivor_index;
         }
 
         double fitness_a = 1.0;

@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++2a
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/c/Users/User.PIM-ZBOOK/CLionProjects/galib/include 
+CXX_INCLUDES = -I/mnt/c/Users/User.PIM-ZBOOK/Documents/GitHub/LCSC_longest_path/ext/galib/include 
 
