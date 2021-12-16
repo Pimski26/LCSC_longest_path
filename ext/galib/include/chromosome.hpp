@@ -94,6 +94,26 @@ namespace gal {
          * @param other The other 'parent' in this crossover.
          */
         virtual void crossover(int pos, BitstringChromosome<T> &other) {
+            auto bits_it = bits_.begin();
+            auto other_it = other.begin();
+
+            // Move iterators ahead to pos
+            for(int i = 0; i < pos; i++){
+                other_it++;
+                bits_it++;
+            }
+
+            // Loop over bits beyond pos
+            while(bits_it != bits_.end()){
+                // Swap the two bits
+                char temp_char = *bits_it;
+                *bits_it = *other_it;
+                *other_it = temp_char;
+                
+                other_it++;
+                bits_it++;
+            }
+            /*
             throw RequiresImplementationError(std::string(R"(
                 The idea of this crossover implementation is as follows:
                 this current BitstringChromosome object is asked to `crossover'
@@ -108,6 +128,7 @@ namespace gal {
                 approach uses the std::vector::splice (and std::advance) functions
                 of the STL.
             )"));
+            */
         }
 
         /**
