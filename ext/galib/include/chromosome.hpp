@@ -50,9 +50,10 @@ namespace gal {
          */
         virtual std::string getBitstringText() const {
             std::string str;
-            throw RequiresImplementationError(std::string(R"(
-                Return `bits_` as a string, rather than a `std::list`.
-            )"));
+            for(std::list<char>::const_iterator it = bits_.begin(); it != bits_.end(); it++) {
+                str += *it;
+            }
+            return str;
         }
 
         /**
