@@ -206,9 +206,11 @@ namespace gal {
          * @param population
          */
         void mutate(const std::vector<C> &population) const {
-            throw RequiresImplementationError(std::string(R"(
-                Call `mutate()` on the chromosomes C. Use `mutation_probability_`.
-            )"));
+            // Loop over all chromosomes in population
+            for(auto chromosome_it = population.begin(); chromosome_it != population.end(); chromosome_it++){
+                // Mutate with probability mutation_probability_
+                *chromosome_it.mutate(mutation_probability_);
+            }
         }
 
         /**

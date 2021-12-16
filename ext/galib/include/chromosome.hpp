@@ -109,7 +109,7 @@ namespace gal {
                 char temp_char = *bits_it;
                 *bits_it = *other_it;
                 *other_it = temp_char;
-                
+
                 other_it++;
                 bits_it++;
             }
