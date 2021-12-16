@@ -95,7 +95,7 @@ namespace gal {
          */
         virtual void crossover(int pos, BitstringChromosome<T> &other) {
             auto bits_it = bits_.begin();
-            auto other_it = other.begin();
+            auto other_it = other.bits_.begin();
 
             // Move iterators ahead to pos
             for(int i = 0; i < pos; i++){

@@ -180,7 +180,7 @@ namespace gal {
                 }
 
             }
-
+            return next_generation;
         }
 
         /**
@@ -227,11 +227,11 @@ namespace gal {
          * `mutation_probability_`.
          * @param population
          */
-        void mutate(const std::vector<C> &population) const {
+        void mutate(std::vector<C> &population) const {
             // Loop over all chromosomes in population
             for(auto chromosome_it = population.begin(); chromosome_it != population.end(); chromosome_it++){
                 // Mutate with probability mutation_probability_
-                *chromosome_it.mutate(mutation_probability_);
+                (*chromosome_it).mutate(mutation_probability_);
             }
         }
 
@@ -249,12 +249,11 @@ namespace gal {
             int survivor_index = 0;
 
             while(roulette_test <= roulette){
-                float add_to_roulette_test = population_fitness[survivor_index];
+                roulette_test += population_fitness[survivor_index];
                 survivor_index++;
-                roulette_test += add_to_roulette_test;
             }
 
-            return survivor_index;
+            return --survivor_index;
         }
 
         double fitness_a = 1.0;

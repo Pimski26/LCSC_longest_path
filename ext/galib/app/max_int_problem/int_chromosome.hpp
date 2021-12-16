@@ -53,6 +53,7 @@ namespace gal {
                 Compute the decimal value of the chromosome bits here.
             )"));
             */
+            return total;
         }
     };
 }
