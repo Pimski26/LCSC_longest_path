@@ -2,12 +2,24 @@
 // Created by emi on 02/12/2021.
 //
 #include "../include/graph.h"
+#include "../include/randomGraph.h"
+
 namespace galplib{
     std::vector<std::vector<unsigned int>> simpleTriangle(){
         std::vector<std::vector<unsigned int>> testData = std::vector<std::vector<unsigned int>>();
         testData.push_back({2, 3, 3});
         testData.push_back({1, 2, 1});
         testData.push_back({1, 3, 5});
+        return testData;
+    }
+
+    std::vector<std::vector<unsigned int>> simpleConnComp(){
+        std::vector<std::vector<unsigned int>> testData = std::vector<std::vector<unsigned int>>();
+        testData.push_back({1, 5, 3});
+        testData.push_back({2, 4, 1});
+        testData.push_back({3, 4, 5});
+        testData.push_back({4, 5, 5});
+        testData.push_back({6, 7, 5});
         return testData;
     }
 
@@ -26,12 +38,24 @@ namespace galplib{
         return testData;
     }
 
+
+    void testExampleGraph(){
+        auto testData = galplib::exampleGraph();
+        galplib::Graph g = galplib::Graph(testData, 9);
+        std::vector<unsigned int> prefs{7, 2, 8, 4, 5, 9, 3, 6, 2, 1};
+        auto outp = g.computePath(prefs);
+    }
+
+    void testConnectedComponents(){
+        auto testData = simpleConnComp();
+        findConnectedComponents(testData, 7);
+    }
 }
 
+
+
 int main() {
-    auto testData = galplib::exampleGraph();
-    galplib::Graph g = galplib::Graph(testData, 9);
-    std::vector<unsigned int> prefs{7, 2, 8, 4, 5, 9, 3, 6, 2, 1};
-    auto outp = g.computePath(prefs);
+    galplib::testExampleGraph();
+    galplib::testConnectedComponents();
     return 0;
 };

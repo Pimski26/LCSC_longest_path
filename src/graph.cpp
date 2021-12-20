@@ -11,9 +11,13 @@ namespace galplib {
         return I1[0] < I2[0];
     }
 
-    Graph::Graph(std::vector<std::vector<unsigned int>> & input, unsigned int nodes) {
-        // make sure it's sorted!
+    std::vector<std::vector<unsigned int>> sortInput(std::vector<std::vector<unsigned int>> input){
         std::sort(input.begin(), input.end(), compareIndex);
+    }
+
+    Graph::Graph(std::vector<std::vector<unsigned int>> & input, unsigned int nodes) {
+        sortInput(input);
+        // make sure it's sorted!
         nodeCount = nodes;
         edges = std::vector<std::unordered_map<unsigned int, int>>();
         unsigned int iter = 0;
@@ -37,6 +41,14 @@ namespace galplib {
             if (edges[j].contains(i)) return edges[j][i];
         }
         return -1;
+    }
+
+    std::unordered_map<unsigned int, int> Graph::getNodeEdgeSet(unsigned int i) {
+        return edges[i];
+    }
+
+    unsigned int Graph::getNodeCount() {
+        return nodeCount;
     }
 
     std::vector<unsigned int> Graph::computePath(const std::vector<unsigned int> & prefs){
