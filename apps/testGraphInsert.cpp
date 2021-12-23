@@ -1,6 +1,8 @@
 //
 // Created by emi on 02/12/2021.
 //
+#include <algorithm>
+#include <random>
 #include "../include/graph.h"
 #include "../include/randomGraph.h"
 
@@ -51,12 +53,19 @@ namespace galplib{
         findConnectedComponents(testData, 7);
     }
 
+    void testErdosGeneration(){
+        auto g1 = erdosGraphRecursive(10, 0.3, 0);
+        1 + 1;
+        auto g2 = erdosGraphRejection(10, 0.3, 0);
+        2 + 2;
+    }
 }
 
 
 
 int main() {
     galplib::testExampleGraph();
-    galplib::testConnectedComponents();
+//    galplib::testConnectedComponents();
+    galplib::testErdosGeneration();
     return 0;
 };
