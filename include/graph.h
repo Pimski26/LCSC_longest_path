@@ -8,7 +8,7 @@
 #include <unordered_map>
 
 namespace galplib{
-    std::vector<std::vector<unsigned int>> sortInput(std::vector<std::vector<unsigned int>> input);
+    void sortInput(std::vector<std::vector<unsigned int>> & input);
 
     class Graph{
     public:

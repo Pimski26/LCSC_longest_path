@@ -50,6 +50,7 @@ namespace galplib{
         auto testData = simpleConnComp();
         findConnectedComponents(testData, 7);
     }
+
 }
 
 

@@ -11,7 +11,7 @@ namespace galplib {
         return I1[0] < I2[0];
     }
 
-    std::vector<std::vector<unsigned int>> sortInput(std::vector<std::vector<unsigned int>> input){
+    void sortInput(std::vector<std::vector<unsigned int>> & input){
         std::sort(input.begin(), input.end(), compareIndex);
     }
 

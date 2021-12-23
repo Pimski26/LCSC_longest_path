@@ -3,37 +3,59 @@
 //
 #include <queue>
 #include <list>
+#include <tgmath.h>
 #include "../include/randomGraph.h"
 
 namespace galplib{
     Graph erdosGraphRecursive(unsigned int nodes, double p, int seed) {
         srand(seed);
         auto input = erdosInputGen(nodes, p, seed);
-        auto concomp = findConnectedComponents(input, seed);
+        auto concomp = findConnectedComponents(input, nodes);
         while (concomp.size() > 1) {
+            //make a new Erdos graph where each node represents one of the connected components. (name c-graph)
             auto input2 = erdosInputGen(concomp.size(), p, rand());
-            std::vector<std::vector<unsigned int>> tbaI; //to be added i
-            std::vector<std::vector<unsigned int>> tbaJ; //to be added j (edge (i,j))
             for (auto entry : input2) {
-                std::sample(concomp[entry[0]].begin(), concomp[entry[0]].end(), std::back_inserter(tbaI), 1, rand);
-                std::sample(concomp[entry[1]].begin(), concomp[entry[1]].end(), std::back_inserter(tbaJ), 1, rand);
-            } // TODO generate w's and update concomp
-        }// findConnectedComponents
-        // if (concomp.size() > 1)
-        // erdosGraphRecursive(concomp.size())
-        // connect components
-        // return
+                std::vector<unsigned int> addendum; // Turn edges from c-graph edges into edges in our real graph.
+                // entry = {i', j', x}, i' and j'  are the connected components number, or nodes in the c-graph
+                std::sample(concomp[entry[0]].begin(), concomp[entry[0]].end(), std::back_inserter(addendum), 1, rand); // Select i
+                std::sample(concomp[entry[1]].begin(), concomp[entry[1]].end(), std::back_inserter(addendum), 1, rand); // Select j
+                addendum.push_back((rand() % (nodes*nodes))+1); // Select w.
+                input.push_back(addendum); // Add the new edge into our main input.
+            }
+            sortInput(input); // Sort because we require sorted list of edges for memory segmentation reasons.
+            concomp = findConnectedComponents(input, nodes);
+        }
+        return Graph(input, nodes);
+    }
+
+    template<typename T>
+    bool sizeCompare(std::vector<T> a, std::vector<T> b){
+        return a.size() < b.size();
     }
 
     Graph erdosGraphRejection(unsigned int nodes, double p, int seed) {
-        //while (notFoundOfSize){
-        //    generate
-        //    findConnectedComponents
-        //    Sort
-        //    last.size() = n
-        //    foundSize
-        //}
-        // return foundGraph
+        srand(seed);
+        while (true){
+            unsigned int genSize = 1 * nodes * sqrt(nodes); //tune later?
+            auto input = erdosInputGen(genSize, p, rand());
+            auto concomp = findConnectedComponents(input, nodes);
+            auto largestcomp = *std::max_element(concomp.begin(), concomp.end(), sizeCompare<unsigned int>);
+            if (largestcomp.size() == nodes){
+                std::unordered_map<unsigned int, unsigned int> indexFixer = std::unordered_map<unsigned int, unsigned int>();
+                for (int i = 1; i <= nodes; i++)
+                {
+                    indexFixer.emplace(largestcomp[i-1], i);
+                }
+                std::vector<std::vector<unsigned int>> newInput;
+                for (auto entry : input){
+                    if (indexFixer.contains(entry[0]) && indexFixer.contains(entry[1])){
+                        std::vector<unsigned int> newEdge = {indexFixer[entry[0]], indexFixer[entry[1]], entry[2]};
+                        newInput.push_back(newEdge);
+                    }
+                }
+                return Graph(input, nodes);
+            }
+        }
     }
 
     std::vector<std::vector<unsigned int>> erdosInputGen(unsigned int nodes, double p, int seed) {
