@@ -34,7 +34,7 @@ namespace gal {
          * @param length The number of bits in this BitstringChromosome.
          */
         explicit BitstringChromosome(int length)
-                : bits_(length) {
+                : bits_(length), elite_(false) {
             for (auto &b: bits_) // initialize `bits_` randomly
                 b = getRandomBit();
         }
@@ -51,7 +51,7 @@ namespace gal {
         virtual std::string getBitstringText() const {
             std::string str;
             for(std::list<char>::const_iterator it = bits_.begin(); it != bits_.end(); it++){
-                str += *it;
+                str += std::to_string(*it);
             }
             return str;
         }
@@ -95,7 +95,7 @@ namespace gal {
          */
         virtual void crossover(int pos, BitstringChromosome<T> &other) {
             auto bits_it = bits_.begin();
-            auto other_it = other.begin();
+            auto other_it = other.bits_.begin();
 
             // Move iterators ahead to pos
             for(int i = 0; i < pos; i++){
@@ -113,22 +113,7 @@ namespace gal {
                 other_it++;
                 bits_it++;
             }
-            /*
-            throw RequiresImplementationError(std::string(R"(
-                The idea of this crossover implementation is as follows:
-                this current BitstringChromosome object is asked to `crossover'
-                with another BitstringChromosome `other`.
-                It needs to cut its own bitstring and that of `other` into two
-                pieces, and exchange the tail parts of the two bitstrings.
-                Since `other` is a non-const reference to the other BitstringChromosome,
-                you're able to modify the bitstring contents of that BitstringChromosome.
 
-                You could create a loop over both bitstrings, and copy
-                the bits to the other bitstring. A more technical
-                approach uses the std::vector::splice (and std::advance) functions
-                of the STL.
-            )"));
-            */
         }
 
         /**
@@ -139,11 +124,22 @@ namespace gal {
             crossover(random_int(bits_.size()), other);
         }
 
+        /**
+         * Returns boolean value indicating whether the chromosome is an elite
+         */
+        bool isElite() {return elite_;}
+
+        /**
+         * Sets boolean value indicating whether the chromosome is an elite
+         */
+        void setElite(bool elite) {elite_ = elite;}
     protected:
         std::list<char> bits_;
 
         static char getRandomBit() {
             return (char) random_int(2);
         }
+
+        bool elite_;
     };
 }

@@ -31,10 +31,14 @@ namespace gal {
          * Evaluates the objective function for an input value.
          */
         double evaluate(const IntegerChromosome chromo) const override {
+            return chromo.getValue();
+
+            /*
             throw RequiresImplementationError(std::string(R"(
                 Return an objective value such that the integer
                 value represented by the chromosome is maximised.
             )"));
+            */
         }
 
     protected:

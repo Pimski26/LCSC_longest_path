@@ -48,11 +48,13 @@ namespace gal {
         GeneticAlgorithm(const Problem<C> &problem,
                          int population_size,
                          double mutation_probability,
-                         double crossover_probability)
+                         double crossover_probability,
+                         int nr_of_elites)
                 : problem_(problem),
                   population_(),
                   mutation_probability_(mutation_probability),
-                  crossover_probability_(crossover_probability) {
+                  crossover_probability_(crossover_probability),
+                  nr_of_elites_(nr_of_elites) {
             // create initial population
             population_.reserve(population_size);
             objectives_.reserve(population_size);
@@ -70,7 +72,7 @@ namespace gal {
          */
         void nextGeneration() {
             // create new chromosomes, and throw old away
-            population_ = reproduce(population_, objectives_);
+            population_ = reproduce(population_, objectives_, nr_of_elites_);
 
             // randomly distort chromosomes in-place
             mutate(population_);
@@ -137,19 +139,63 @@ namespace gal {
          *   2. crossover on selected chromosomes to produce offspring
          */
         std::vector<C> reproduce(const std::vector<C> &population,
-                                 const std::vector<double> &objectives) const {
+                                 const std::vector<double> &objectives,
+                                 const unsigned int nr_of_elites = 0) const {
             auto population_fitness = fitness(objectives);
             double total_fitness = std::reduce(population_fitness.begin(), population_fitness.end());
             std::vector<C> next_generation;
             next_generation.reserve(population.size());
 
+
+            // Check there are not more elites than the size of the population
+            if(nr_of_elites > population.size()){
+                throw std::logic_error("The nr of elites can at most be the size of the population.");
+            }
+
+            // Create list of numbers 0,1,...,population.size()-1
+            // Sort these population indices by objective values of corresponding chromosomes
+            std::vector<int> chromo_indices_by_obj;
+            for(int i = 0; i < population.size(); i++){
+                chromo_indices_by_obj.push_back(i);
+            }
+            // TODO: Verify this stuff works
+            sort(chromo_indices_by_obj.begin(), chromo_indices_by_obj.end(),
+                 [&objectives](int a, int b) {
+                     return (objectives[a] > objectives[b]);
+                 }
+            );
+
+            std::vector<C> sorted_population;
+            for(int chromo_index :chromo_indices_by_obj){
+                sorted_population.push_back(population[chromo_index]);
+            }
+
             std::vector<C> parents;
-            std::vector<C> children;
+
+
+            // Keep track of the number of elites we already added to next generation
+            unsigned int elite_index = 0;
+            // If there are elites, add all of them
+            while(elite_index < nr_of_elites && next_generation.size() < population.size()){
+                // TODO: Allow elites to be parents
+                // TODO: Exempt elites from mutation
+
+                // Set elite property for the chromosome to be true
+                sorted_population[elite_index].setElite(true);
+                // Add it to next generation
+                next_generation.push_back(sorted_population[elite_index]);
+
+                // Add elite as parent with cross_over_probability_
+                float cross_over_rand = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX));
+                if(cross_over_rand <= crossover_probability_){
+                    parents.push_back(population[elite_index]);
+                }
+
+                elite_index++;
+            }
+
 
             while(next_generation.size() < population.size()){
-                // Empty vectors of parents and children
-                parents = std::vector<C>();
-                children = std::vector<C>();
 
                 while(parents.size() < 2 && next_generation.size() < population.size()){
                     int survivor_index = select(population_fitness, total_fitness);
@@ -165,22 +211,41 @@ namespace gal {
                     }
                  }
 
-                while(children.size() < 2 && next_generation.size() < population.size()){
-                    // Copy the two parents
-                    auto child_a = C(parents[0]);
-                    auto child_b = C(parents[1]);
-                    int max_pos = 16;
+                while(parents.size() >= 2 && next_generation.size() < population.size()){
+                    // Copy the first parent from end of vector
+                    auto child_a1 = C(parents.back());
+                    // Remove the parent we just copied
+                    parents.pop_back();
+                    // Copy the second parent from end of vector
+                    auto child_a2 = C(parents.back());
+                    // Remove the parent we just copied
+                    parents.pop_back();
+
+                    // Copy both chromosomes for making second child
+                    auto child_b1 = C(child_a1);
+                    auto child_b2 = C(child_a2);
+
                     // Get random position between 0 and 15;
+                    int max_pos = 16;
                     int pos = rand() / (RAND_MAX/max_pos);
                     // Crossover
-                    child_a.crossover(pos, child_b);
+                    child_a1.crossover(pos, child_a2);
                     // Add child_a to next generation
-                    next_generation.push_back(child_a);
-                    children.push_back(child_a);
+                    next_generation.push_back(child_a1);
+
+                    // Check if there is room for second child
+                    if(next_generation.size() < population.size()){
+                        // Get random position between 0 and 15;
+                        int pos = rand() / (RAND_MAX/max_pos);
+                        // Crossover
+                        child_b1.crossover(pos, child_b2);
+                        // Add child_b to next generation
+                        next_generation.push_back(child_b1);
+                    }
                 }
 
             }
-
+            return next_generation;
         }
 
         /**
@@ -227,11 +292,16 @@ namespace gal {
          * `mutation_probability_`.
          * @param population
          */
-        void mutate(const std::vector<C> &population) const {
+        void mutate(std::vector<C> &population) const {
             // Loop over all chromosomes in population
             for(auto chromosome_it = population.begin(); chromosome_it != population.end(); chromosome_it++){
-                // Mutate with probability mutation_probability_
-                *chromosome_it.mutate(mutation_probability_);
+                // If elite, skip mutation, then set elite to false again
+                if((*chromosome_it).isElite()) {
+                    (*chromosome_it).setElite(false);
+                } else {
+                    // If not elite, mutate with probability mutation_probability_
+                    (*chromosome_it).mutate(mutation_probability_);
+                }
             }
         }
 
@@ -249,12 +319,11 @@ namespace gal {
             int survivor_index = 0;
 
             while(roulette_test <= roulette){
-                float add_to_roulette_test = population_fitness[survivor_index];
+                roulette_test += population_fitness[survivor_index];
                 survivor_index++;
-                roulette_test += add_to_roulette_test;
             }
 
-            return survivor_index;
+            return --survivor_index;
         }
 
         double fitness_a = 1.0;
@@ -266,5 +335,6 @@ namespace gal {
         std::vector<double> generation_max_objectives_;   // History of best objective values
         double mutation_probability_;               // Probability of mutation for bits
         double crossover_probability_;              // Probability of crossover for chromosomes
+        int nr_of_elites_;                          // Nr of elites per generation
     };
 }
