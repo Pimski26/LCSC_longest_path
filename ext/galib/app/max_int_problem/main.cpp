@@ -13,7 +13,8 @@ int main() {
             problem,
             cfg.population_size,
             cfg.mutation_probability,
-            cfg.crossover_probability);
+            cfg.crossover_probability,
+            cfg.nr_of_elites);
 
     // run genetic algorithm until `nr_generations` or convergence criteria
     while (true) {
@@ -92,6 +93,8 @@ RunParameters read_parameter_file(const std::string &filename) {
                     config.crossover_probability = std::stod(value);
                 } else if (key == "convergence_threshold") {
                     config.convergence_threshold = std::stoi(value);
+                } else if (key == "nr_of_elites") {
+                    config.nr_of_elites = std::stoi(value);
                 } else {
                     throw std::runtime_error("Could not parse unknown parameter with key '" + key + "'.");
                 }

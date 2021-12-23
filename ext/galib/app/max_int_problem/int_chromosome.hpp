@@ -46,12 +46,6 @@ namespace gal {
                 if(*it == 1) {
                     total += 1;
                 }
-                /*
-                if(*it == 1){
-                    total += pow(2,exponent);
-                }
-                exponent++;
-                 */
             }
             return total;
         }

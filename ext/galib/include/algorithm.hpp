@@ -48,11 +48,13 @@ namespace gal {
         GeneticAlgorithm(const Problem<C> &problem,
                          int population_size,
                          double mutation_probability,
-                         double crossover_probability)
+                         double crossover_probability,
+                         int nr_of_elites)
                 : problem_(problem),
                   population_(),
                   mutation_probability_(mutation_probability),
-                  crossover_probability_(crossover_probability) {
+                  crossover_probability_(crossover_probability),
+                  nr_of_elites_(nr_of_elites) {
             // create initial population
             population_.reserve(population_size);
             objectives_.reserve(population_size);
@@ -70,7 +72,7 @@ namespace gal {
          */
         void nextGeneration() {
             // create new chromosomes, and throw old away
-            population_ = reproduce(population_, objectives_);
+            population_ = reproduce(population_, objectives_, nr_of_elites_);
 
             // randomly distort chromosomes in-place
             mutate(population_);
@@ -333,5 +335,6 @@ namespace gal {
         std::vector<double> generation_max_objectives_;   // History of best objective values
         double mutation_probability_;               // Probability of mutation for bits
         double crossover_probability_;              // Probability of crossover for chromosomes
+        int nr_of_elites_;                          // Nr of elites per generation
     };
 }
