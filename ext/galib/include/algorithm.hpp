@@ -169,7 +169,6 @@ namespace gal {
             }
 
             std::vector<C> parents;
-            std::vector<C> children;
 
 
             // Keep track of the number of elites we already added to next generation
@@ -178,16 +177,23 @@ namespace gal {
             while(elite_index < nr_of_elites && next_generation.size() < population.size()){
                 // TODO: Allow elites to be parents
                 // TODO: Exempt elites from mutation
+
+                // Set elite property for the chromosome to be true
+                sorted_population[elite_index].setElite(true);
+                // Add it to next generation
                 next_generation.push_back(sorted_population[elite_index]);
+
+                // Add elite as parent with cross_over_probability_
+                float cross_over_rand = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX));
+                if(cross_over_rand <= crossover_probability_){
+                    parents.push_back(population[elite_index]);
+                }
+
                 elite_index++;
             }
 
 
             while(next_generation.size() < population.size()){
-                // Empty vectors of parents and children
-                parents = std::vector<C>();
-                children = std::vector<C>();
-
 
                 while(parents.size() < 2 && next_generation.size() < population.size()){
                     int survivor_index = select(population_fitness, total_fitness);
@@ -203,18 +209,37 @@ namespace gal {
                     }
                  }
 
-                while(children.size() < 2 && next_generation.size() < population.size()){
-                    // Copy the two parents
-                    auto child_a = C(parents[0]);
-                    auto child_b = C(parents[1]);
-                    int max_pos = 16;
+                while(parents.size() >= 2 && next_generation.size() < population.size()){
+                    // Copy the first parent from end of vector
+                    auto child_a1 = C(parents.back());
+                    // Remove the parent we just copied
+                    parents.pop_back();
+                    // Copy the second parent from end of vector
+                    auto child_a2 = C(parents.back());
+                    // Remove the parent we just copied
+                    parents.pop_back();
+
+                    // Copy both chromosomes for making second child
+                    auto child_b1 = C(child_a1);
+                    auto child_b2 = C(child_a2);
+
                     // Get random position between 0 and 15;
+                    int max_pos = 16;
                     int pos = rand() / (RAND_MAX/max_pos);
                     // Crossover
-                    child_a.crossover(pos, child_b);
+                    child_a1.crossover(pos, child_a2);
                     // Add child_a to next generation
-                    next_generation.push_back(child_a);
-                    children.push_back(child_a);
+                    next_generation.push_back(child_a1);
+
+                    // Check if there is room for second child
+                    if(next_generation.size() < population.size()){
+                        // Get random position between 0 and 15;
+                        int pos = rand() / (RAND_MAX/max_pos);
+                        // Crossover
+                        child_b1.crossover(pos, child_b2);
+                        // Add child_b to next generation
+                        next_generation.push_back(child_b1);
+                    }
                 }
 
             }
@@ -268,8 +293,13 @@ namespace gal {
         void mutate(std::vector<C> &population) const {
             // Loop over all chromosomes in population
             for(auto chromosome_it = population.begin(); chromosome_it != population.end(); chromosome_it++){
-                // Mutate with probability mutation_probability_
-                (*chromosome_it).mutate(mutation_probability_);
+                // If elite, skip mutation, then set elite to false again
+                if((*chromosome_it).isElite()) {
+                    (*chromosome_it).setElite(false);
+                } else {
+                    // If not elite, mutate with probability mutation_probability_
+                    (*chromosome_it).mutate(mutation_probability_);
+                }
             }
         }
 
