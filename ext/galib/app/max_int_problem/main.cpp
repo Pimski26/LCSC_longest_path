@@ -23,8 +23,10 @@ int main() {
 
         auto popu = ga.population(); // vector of IntegerChromosome
         auto iter = popu.begin(); // an iterator of this vector
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++) {
             std::cout << iter->getValue() << " : " << iter->getBitstringText() << std::endl;
+            iter++;
+        }
 
         std::cout << " * Objective value: " << ga.objectiveValues().back() << std::endl;
         std::cout << " * Optimum solution: " << ga.optimum().getBitstringText() << std::endl;
