@@ -58,6 +58,8 @@ namespace galplib {
         return nodeCount;
     }
 
+    //This function will return a path and it's length. The length is encoded in path[0], the vertices visited are
+    // [1..n] where n is the total vertices in path.
     std::vector<unsigned int> Graph::computePath(const std::vector<unsigned int> & prefs){
         std::unordered_set<unsigned int> visited = std::unordered_set<unsigned int>(prefs.size());
         unsigned int current = prefs[0]; // Our nodes are all 1-indexed, meaning the 0th index is free to put as a start node.
