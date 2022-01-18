@@ -111,6 +111,45 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named longest_path_problem
+
+# Build rule for target.
+longest_path_problem: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 longest_path_problem
+.PHONY : longest_path_problem
+
+# fast build rule for target.
+longest_path_problem/fast:
+	$(MAKE) -f CMakeFiles/longest_path_problem.dir/build.make CMakeFiles/longest_path_problem.dir/build
+.PHONY : longest_path_problem/fast
+
+#=============================================================================
+# Target rules for targets named testGraphInsert
+
+# Build rule for target.
+testGraphInsert: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testGraphInsert
+.PHONY : testGraphInsert
+
+# fast build rule for target.
+testGraphInsert/fast:
+	$(MAKE) -f CMakeFiles/testGraphInsert.dir/build.make CMakeFiles/testGraphInsert.dir/build
+.PHONY : testGraphInsert/fast
+
+#=============================================================================
+# Target rules for targets named graph_lib
+
+# Build rule for target.
+graph_lib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 graph_lib
+.PHONY : graph_lib
+
+# fast build rule for target.
+graph_lib/fast:
+	$(MAKE) -f CMakeFiles/graph_lib.dir/build.make CMakeFiles/graph_lib.dir/build
+.PHONY : graph_lib/fast
+
+#=============================================================================
 # Target rules for targets named max_int_problem
 
 # Build rule for target.
@@ -122,6 +161,33 @@ max_int_problem: cmake_check_build_system
 max_int_problem/fast:
 	$(MAKE) -f CMakeFiles/max_int_problem.dir/build.make CMakeFiles/max_int_problem.dir/build
 .PHONY : max_int_problem/fast
+
+app/longest_path_problem/main.o: app/longest_path_problem/main.cpp.o
+
+.PHONY : app/longest_path_problem/main.o
+
+# target to build an object file
+app/longest_path_problem/main.cpp.o:
+	$(MAKE) -f CMakeFiles/longest_path_problem.dir/build.make CMakeFiles/longest_path_problem.dir/app/longest_path_problem/main.cpp.o
+.PHONY : app/longest_path_problem/main.cpp.o
+
+app/longest_path_problem/main.i: app/longest_path_problem/main.cpp.i
+
+.PHONY : app/longest_path_problem/main.i
+
+# target to preprocess a source file
+app/longest_path_problem/main.cpp.i:
+	$(MAKE) -f CMakeFiles/longest_path_problem.dir/build.make CMakeFiles/longest_path_problem.dir/app/longest_path_problem/main.cpp.i
+.PHONY : app/longest_path_problem/main.cpp.i
+
+app/longest_path_problem/main.s: app/longest_path_problem/main.cpp.s
+
+.PHONY : app/longest_path_problem/main.s
+
+# target to generate assembly for a file
+app/longest_path_problem/main.cpp.s:
+	$(MAKE) -f CMakeFiles/longest_path_problem.dir/build.make CMakeFiles/longest_path_problem.dir/app/longest_path_problem/main.cpp.s
+.PHONY : app/longest_path_problem/main.cpp.s
 
 app/max_int_problem/main.o: app/max_int_problem/main.cpp.o
 
@@ -150,6 +216,87 @@ app/max_int_problem/main.cpp.s:
 	$(MAKE) -f CMakeFiles/max_int_problem.dir/build.make CMakeFiles/max_int_problem.dir/app/max_int_problem/main.cpp.s
 .PHONY : app/max_int_problem/main.cpp.s
 
+app/testGraphInsert.o: app/testGraphInsert.cpp.o
+
+.PHONY : app/testGraphInsert.o
+
+# target to build an object file
+app/testGraphInsert.cpp.o:
+	$(MAKE) -f CMakeFiles/testGraphInsert.dir/build.make CMakeFiles/testGraphInsert.dir/app/testGraphInsert.cpp.o
+.PHONY : app/testGraphInsert.cpp.o
+
+app/testGraphInsert.i: app/testGraphInsert.cpp.i
+
+.PHONY : app/testGraphInsert.i
+
+# target to preprocess a source file
+app/testGraphInsert.cpp.i:
+	$(MAKE) -f CMakeFiles/testGraphInsert.dir/build.make CMakeFiles/testGraphInsert.dir/app/testGraphInsert.cpp.i
+.PHONY : app/testGraphInsert.cpp.i
+
+app/testGraphInsert.s: app/testGraphInsert.cpp.s
+
+.PHONY : app/testGraphInsert.s
+
+# target to generate assembly for a file
+app/testGraphInsert.cpp.s:
+	$(MAKE) -f CMakeFiles/testGraphInsert.dir/build.make CMakeFiles/testGraphInsert.dir/app/testGraphInsert.cpp.s
+.PHONY : app/testGraphInsert.cpp.s
+
+src/graph.o: src/graph.cpp.o
+
+.PHONY : src/graph.o
+
+# target to build an object file
+src/graph.cpp.o:
+	$(MAKE) -f CMakeFiles/graph_lib.dir/build.make CMakeFiles/graph_lib.dir/src/graph.cpp.o
+.PHONY : src/graph.cpp.o
+
+src/graph.i: src/graph.cpp.i
+
+.PHONY : src/graph.i
+
+# target to preprocess a source file
+src/graph.cpp.i:
+	$(MAKE) -f CMakeFiles/graph_lib.dir/build.make CMakeFiles/graph_lib.dir/src/graph.cpp.i
+.PHONY : src/graph.cpp.i
+
+src/graph.s: src/graph.cpp.s
+
+.PHONY : src/graph.s
+
+# target to generate assembly for a file
+src/graph.cpp.s:
+	$(MAKE) -f CMakeFiles/graph_lib.dir/build.make CMakeFiles/graph_lib.dir/src/graph.cpp.s
+.PHONY : src/graph.cpp.s
+
+src/randomGraph.o: src/randomGraph.cpp.o
+
+.PHONY : src/randomGraph.o
+
+# target to build an object file
+src/randomGraph.cpp.o:
+	$(MAKE) -f CMakeFiles/graph_lib.dir/build.make CMakeFiles/graph_lib.dir/src/randomGraph.cpp.o
+.PHONY : src/randomGraph.cpp.o
+
+src/randomGraph.i: src/randomGraph.cpp.i
+
+.PHONY : src/randomGraph.i
+
+# target to preprocess a source file
+src/randomGraph.cpp.i:
+	$(MAKE) -f CMakeFiles/graph_lib.dir/build.make CMakeFiles/graph_lib.dir/src/randomGraph.cpp.i
+.PHONY : src/randomGraph.cpp.i
+
+src/randomGraph.s: src/randomGraph.cpp.s
+
+.PHONY : src/randomGraph.s
+
+# target to generate assembly for a file
+src/randomGraph.cpp.s:
+	$(MAKE) -f CMakeFiles/graph_lib.dir/build.make CMakeFiles/graph_lib.dir/src/randomGraph.cpp.s
+.PHONY : src/randomGraph.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -157,11 +304,26 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... longest_path_problem"
 	@echo "... rebuild_cache"
+	@echo "... testGraphInsert"
+	@echo "... graph_lib"
 	@echo "... max_int_problem"
+	@echo "... app/longest_path_problem/main.o"
+	@echo "... app/longest_path_problem/main.i"
+	@echo "... app/longest_path_problem/main.s"
 	@echo "... app/max_int_problem/main.o"
 	@echo "... app/max_int_problem/main.i"
 	@echo "... app/max_int_problem/main.s"
+	@echo "... app/testGraphInsert.o"
+	@echo "... app/testGraphInsert.i"
+	@echo "... app/testGraphInsert.s"
+	@echo "... src/graph.o"
+	@echo "... src/graph.i"
+	@echo "... src/graph.s"
+	@echo "... src/randomGraph.o"
+	@echo "... src/randomGraph.i"
+	@echo "... src/randomGraph.s"
 .PHONY : help
 
 

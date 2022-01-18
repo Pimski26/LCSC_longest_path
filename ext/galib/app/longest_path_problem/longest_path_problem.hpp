@@ -31,7 +31,7 @@ namespace gal {
         double evaluate(const PathChromosome chromo) const override {
             return chromo.getValue();
 
-            
+
         }
 
     protected:

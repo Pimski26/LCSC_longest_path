@@ -48,5 +48,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/longest_path_problem.dir/DependInfo.cmake"
+  "CMakeFiles/testGraphInsert.dir/DependInfo.cmake"
+  "CMakeFiles/graph_lib.dir/DependInfo.cmake"
   "CMakeFiles/max_int_problem.dir/DependInfo.cmake"
   )
