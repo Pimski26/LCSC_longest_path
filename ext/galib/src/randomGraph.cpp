@@ -7,7 +7,7 @@
 #include <random>
 #include "../include/randomGraph.h"
 
-namespace galplib{
+namespace graph_lib{
     Graph erdosGraphRecursive(unsigned int nodes, double p, int seed) {
         auto gen = std::mt19937(seed);
         auto input = erdosInputGen(nodes, p, seed);

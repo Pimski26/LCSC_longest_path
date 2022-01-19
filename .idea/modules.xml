@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/LCSC_longest_path.iml" filepath="$PROJECT_DIR$/.idea/LCSC_longest_path.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lcscGA.iml" filepath="$PROJECT_DIR$/.idea/lcscGA.iml" />
     </modules>
   </component>
 </project>

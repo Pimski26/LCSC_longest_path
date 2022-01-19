@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <unordered_set>
 
-namespace galplib {
+namespace graph_lib {
     bool compareIndex(std::vector<unsigned int> I1, std::vector<unsigned int> I2){
         return I1[0] < I2[0];
     }

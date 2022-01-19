@@ -7,7 +7,7 @@
 #include <vector>
 #include <unordered_map>
 
-namespace galplib{
+namespace graph_lib{
     void sortInput(std::vector<std::vector<unsigned int>> & input);
 
     class Graph{

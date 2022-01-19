@@ -6,7 +6,7 @@
 #include "../include/graph.h"
 #include "../include/randomGraph.h"
 
-namespace galplib{
+namespace graph_lib{
     std::vector<std::vector<unsigned int>> simpleTriangle(){
         std::vector<std::vector<unsigned int>> testData = std::vector<std::vector<unsigned int>>();
         testData.push_back({2, 3, 3});
@@ -42,8 +42,8 @@ namespace galplib{
 
 
     void testExampleGraph(){
-        auto testData = galplib::exampleGraph();
-        galplib::Graph g = galplib::Graph(testData, 9);
+        auto testData = graph_lib::exampleGraph();
+        auto g = graph_lib::Graph(testData, 9);
         std::vector<unsigned int> prefs{7, 2, 8, 4, 5, 9, 3, 6, 2, 1};
         auto outp = g.computePath(prefs);
     }
@@ -64,8 +64,8 @@ namespace galplib{
 
 
 int main() {
-    galplib::testExampleGraph();
-//    galplib::testConnectedComponents();
-    galplib::testErdosGeneration();
+    graph_lib::testExampleGraph();
+    //graph_lib::testConnectedComponents();
+    graph_lib::testErdosGeneration();
     return 0;
 };
