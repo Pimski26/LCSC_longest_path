@@ -11,12 +11,12 @@ int main() {
     auto problem = IntegerMaximizationProblem(cfg.chromosome_length);
 
     int population_size_array[20] = {100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000};
-    double mutation_probability_array[7] = {0.001,0.003,0.01,0.03,0.1,0.3,1};
+    double mutation_probability_array[10] = {0.001,0.002,0.005,0.01,0.02,0.05,0.1,0.2,0.5,1};
     double cross_over_probability_array[20] = {0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1};
     int nr_of_elites_array[11] = {0,20,40,60,80,100,120,140,160,180,200};
 
     // Number of runs to average over
-    int number_of_runs_to_avg = 20;
+    int number_of_runs_to_avg = 100;
 
     // Run numerical experiment for population size
     std::cout << "Varying population_size:" << std::endl;
