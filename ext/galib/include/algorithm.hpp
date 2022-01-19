@@ -314,7 +314,9 @@ namespace gal {
          */
         int select(std::vector<double> &population_fitness, double &total_fitness) const {
             // Use roulette method to select survivor
-            float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/total_fitness));
+            // We select a value between 0 and (total_fitness - 1), instead of up to total_fitness
+            // This is because otherwise small rounding errors in calculating total_fitness can cause segmentation faults
+            float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(total_fitness-1)));
             float roulette_test = 0;
             int survivor_index = 0;
 

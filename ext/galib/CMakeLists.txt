@@ -8,3 +8,6 @@ target_include_directories(gal INTERFACE include)
 
 add_executable(max_int_problem app/max_int_problem/main.cpp)
 target_link_libraries(max_int_problem gal)
+
+add_executable(max_int_num_exp app/max_int_problem/int_max_numerical_experiments.cpp)
+target_link_libraries(max_int_num_exp gal)
