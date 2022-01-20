@@ -314,18 +314,23 @@ namespace gal {
          */
         int select(std::vector<double> &population_fitness, double &total_fitness) const {
             // Use roulette method to select survivor
-            // We select a value between 0 and (total_fitness - 1), instead of up to total_fitness
-            // This is because otherwise small rounding errors in calculating total_fitness can cause segmentation faults
-            float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(total_fitness-1)));
-            float roulette_test = 0;
-            int survivor_index = 0;
+            // Since the total_fitness and sums here are computed in a different order (the order of total_fitness being
+            // undefined by the function specification), we can have the case that total_fitness > sum(pop_fitness)
+            // In this case we re-spin the roulette. The other case, where total_fitness <= sum(pop_fitness) the final
+            // element gets a small increase in probability to get picked. (the size of the rounding error difference)
+            // This cannot be helped.
+            while(true) {
+                float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (total_fitness)));
+                float roulette_test = 0;
+                int survivor_index = 0;
 
-            while(roulette_test <= roulette){
-                roulette_test += population_fitness[survivor_index];
-                survivor_index++;
+                while (roulette_test <= roulette) {
+                    roulette_test += population_fitness[survivor_index];
+                    survivor_index++;
+                }
+
+                if (survivor_index <= population_fitness.size()) return --survivor_index;
             }
-
-            return --survivor_index;
         }
 
         double fitness_a = 1.0;
