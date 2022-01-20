@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/testGraphInsert.dir/app/testGraphInsert.cpp.o  -o testGraphInsert  libgraph_lib.a 

@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <random>
 
 namespace graph_lib{
     void sortInput(std::vector<std::vector<unsigned int>> & input);
@@ -13,10 +14,11 @@ namespace graph_lib{
     class Graph{
     public:
         Graph(std::vector<std::vector<unsigned int>> & input, unsigned int nodes);
-        std::vector<unsigned int> computePath(const std::vector<unsigned int> & prefs);
-        int getEdge(unsigned int i, unsigned int j);
-        std::unordered_map<unsigned int, int> getNodeEdgeSet(unsigned int i);
-        unsigned int getNodeCount();
+        std::vector<unsigned int> computePath(const std::vector<unsigned int> & prefs) const;
+        int getEdge(unsigned int i, unsigned int j) const;
+        unsigned int getRandomEdge(unsigned int i, std::mt19937 & gen) const;
+        std::unordered_map<unsigned int, int> getNodeEdgeSet(unsigned int i) const;
+        unsigned int getNodeCount() const;
     private:
         std::vector<std::unordered_map<unsigned int, int>> edges;
         unsigned int nodeCount;

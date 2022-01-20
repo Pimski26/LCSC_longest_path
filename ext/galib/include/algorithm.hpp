@@ -138,6 +138,7 @@ namespace gal {
          *   1. (roulette wheel) selection
          *   2. crossover on selected chromosomes to produce offspring
          */
+         //MARK --looks done
         std::vector<C> reproduce(const std::vector<C> &population,
                                  const std::vector<double> &objectives,
                                  const unsigned int nr_of_elites = 0) const {
@@ -266,7 +267,7 @@ namespace gal {
                     min = *obj_it;
                 }
             }
-
+            //MARK --Looks fine
             // Return vector with only values fitness_b if min and max are equal
             if(min == max){
                 std::vector<double> fitness;
@@ -292,6 +293,7 @@ namespace gal {
          * `mutation_probability_`.
          * @param population
          */
+         //MARK --looks fine
         void mutate(std::vector<C> &population) const {
             // Loop over all chromosomes in population
             for(auto chromosome_it = population.begin(); chromosome_it != population.end(); chromosome_it++){
@@ -314,6 +316,7 @@ namespace gal {
          */
         int select(std::vector<double> &population_fitness, double &total_fitness) const {
             // Use roulette method to select survivor
+            // SEGFAULT MARK
             float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/total_fitness));
             float roulette_test = 0;
             int survivor_index = 0;

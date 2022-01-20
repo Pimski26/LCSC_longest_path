@@ -46,6 +46,11 @@ namespace graph_lib{
         auto g = graph_lib::Graph(testData, 9);
         std::vector<unsigned int> prefs{7, 2, 8, 4, 5, 9, 3, 6, 2, 1};
         auto outp = g.computePath(prefs);
+        auto gen = std::mt19937(0);
+        auto o1 = g.getRandomEdge(1, gen);
+        auto o2 = g.getRandomEdge(1, gen);
+        auto o3 = g.getRandomEdge(1, gen);
+        ;
     }
 
     void testConnectedComponents(){

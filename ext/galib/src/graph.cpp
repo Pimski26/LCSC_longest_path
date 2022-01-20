@@ -38,7 +38,7 @@ namespace graph_lib {
 
     // This function returns the weight of an edge, or -1 if it's not included in the graph. This assumes that
     // weights are >= 0.
-    int Graph::getEdge(unsigned int i, unsigned int j) {
+    int Graph::getEdge(unsigned int i, unsigned int j) const{
         if (i > nodeCount || j > nodeCount){
             throw std::invalid_argument("node was not in graph!");
         }
@@ -50,17 +50,25 @@ namespace graph_lib {
         return -1;
     }
 
-    std::unordered_map<unsigned int, int> Graph::getNodeEdgeSet(unsigned int i) {
+    std::unordered_map<unsigned int, int> Graph::getNodeEdgeSet(unsigned int i) const{
         return edges[i];
     }
 
-    unsigned int Graph::getNodeCount() {
+    unsigned int Graph::getNodeCount() const {
         return nodeCount;
+    }
+
+    unsigned int Graph::getRandomEdge(unsigned int i, std::mt19937 & gen) const {
+        auto r = getNodeEdgeSet(i);
+        auto r0 = r;
+        std::vector<std::pair<unsigned int, int>> returnable;
+        std::sample(r.begin(), r.end(), std::back_inserter(returnable), 1, gen);
+        return returnable[0].first;
     }
 
     //This function will return a path and it's length. The length is encoded in path[0], the vertices visited are
     // [1..n] where n is the total vertices in path.
-    std::vector<unsigned int> Graph::computePath(const std::vector<unsigned int> & prefs){
+    std::vector<unsigned int> Graph::computePath(const std::vector<unsigned int> & prefs) const{
         std::unordered_set<unsigned int> visited = std::unordered_set<unsigned int>(prefs.size());
         unsigned int current = prefs[0]; // Our nodes are all 1-indexed, meaning the 0th index is free to put as a start node.
         std::vector<unsigned int> path{0};

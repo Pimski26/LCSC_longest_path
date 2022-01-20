@@ -7,22 +7,24 @@
  * @author Adriaan Graas, a.b.m.graas@uu.nl
  */
 #include "../../include/problem.hpp"
-#include "int_chromosome.hpp"
+#include "path_chromosome.hpp"
 // TODO: include graph.h
 
 namespace gal {
 
     class LongestPathProblem : public Problem<PathChromosome> {
     public:
-        explicit LongestPathProblem(Graph graph)
+        explicit LongestPathProblem(graph_lib::Graph graph, int seed)
             : graph_(graph)
-        {}
+        {
+            gen_ = std::mt19937(seed);
+        }
 
         /**
          * Constructs a new PathChromosome.
          */
-        PathChromosome createChromosome() const override {
-            return PathChromosome(graph_);
+        PathChromosome createChromosome() override {
+            return PathChromosome(graph_, gen_);
         }
 
         /**
@@ -31,10 +33,10 @@ namespace gal {
         double evaluate(const PathChromosome chromo) const override {
             return chromo.getValue();
 
-
         }
 
     protected:
-        Graph graph_;
+        graph_lib::Graph graph_;
+        std::mt19937 gen_;
     };
 }

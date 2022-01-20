@@ -27,7 +27,7 @@ namespace gal {
          * Returns a new BitstringChromosome<T>.
          * Usually this will be an instance of *a subclass of* BitstringChromosome<T>.
          */
-        virtual C createChromosome() const = 0;
+        virtual C createChromosome() = 0;
 
         /**
          * Evaluates the objective function for the value that a chromosome
