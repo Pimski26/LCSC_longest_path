@@ -16,6 +16,7 @@ namespace graph_lib{
         Graph(std::vector<std::vector<unsigned int>> & input, unsigned int nodes);
         std::vector<unsigned int> computePath(const std::vector<unsigned int> & prefs) const;
         int getEdge(unsigned int i, unsigned int j) const;
+        void oneify();
         unsigned int getRandomEdge(unsigned int i, std::mt19937 & gen) const;
         std::unordered_map<unsigned int, int> getNodeEdgeSet(unsigned int i) const;
         unsigned int getNodeCount() const;

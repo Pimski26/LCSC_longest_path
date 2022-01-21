@@ -8,7 +8,7 @@
  */
 #include "../../include/problem.hpp"
 #include "path_chromosome.hpp"
-// TODO: include graph.h
+#include "../../include/graph.h"
 
 namespace gal {
 
@@ -34,9 +34,8 @@ namespace gal {
             return chromo.getValue();
 
         }
-
+        std::mt19937 gen_;
     protected:
         graph_lib::Graph graph_;
-        std::mt19937 gen_;
     };
 }

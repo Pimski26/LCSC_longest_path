@@ -76,7 +76,7 @@ namespace gal {
                 if(mutation_roll <= probability){
                     // Randomly reassign the pref[i]. Reroll randomly untill it is different.
                     auto old_pref = prefs_[i];
-                    while (old_pref == prefs_[i]) {
+                    while (old_pref == prefs_[i] && graph_ref_.getNodeEdgeSet(i).size() > 1) {
                         prefs_[i] = graph_ref_.getRandomEdge(i, gen);
                     }
                 }

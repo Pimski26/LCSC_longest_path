@@ -10,7 +10,7 @@ add_executable(max_int_problem app/max_int_problem/main.cpp)
 target_link_libraries(max_int_problem gal)
 
 # Add library for graph code
-add_library(graph_lib STATIC "src/graph.cpp" "src/randomGraph.cpp")
+add_library(graph_lib STATIC "src/graph.cpp" "src/randomGraph.cpp" "src/testGraphs.cpp")
 target_include_directories(graph_lib PUBLIC include)
 
 # Add executable for testing graph library and link to said library

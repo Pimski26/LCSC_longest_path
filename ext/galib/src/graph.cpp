@@ -15,13 +15,23 @@ namespace graph_lib {
         std::sort(input.begin(), input.end(), compareIndex);
     }
 
+    void inputFix (std::vector<std::vector<unsigned int>> & input){
+        int initSize = input.size();
+        for(auto i = 0; i< initSize; i++)
+        {
+            auto in = input[i];
+            input.push_back({in[1], in[0], in[2]});
+        }
+        sortInput(input); // but actually e.g. iterators
+    }
+
     Graph::Graph(std::vector<std::vector<unsigned int>> & input, unsigned int nodes) {
-        sortInput(input);
+        inputFix(input);
         // make sure it's sorted!
         nodeCount = nodes;
         edges = std::vector<std::unordered_map<unsigned int, int>>();
         unsigned int iter = 0;
-        // Note our graph nodes are 1-indexed. This means we need an empty edge set for node 0 to fill the datastructe.
+        // Note our graph nodes are 1-indexed. This means we need an empty edge set for node 0 to fill the datastructure.
         // However since index 0 should not be in the input, starting the loop at 0 will take care of that.
         for (int index = 0; index <= nodes; index++){
             // We make use of the fact that the input is sorted in the left vertex to be able to enforce that this does
@@ -36,16 +46,24 @@ namespace graph_lib {
         }
     }
 
+    void Graph::oneify(){
+        for (auto edgeset : edges){
+            for (auto it = edgeset.begin(); it != edgeset.end(); it++){
+                it->second = 1;
+            }
+        }
+    }
+
     // This function returns the weight of an edge, or -1 if it's not included in the graph. This assumes that
     // weights are >= 0.
-    int Graph::getEdge(unsigned int i, unsigned int j) const{
+    int Graph::getEdge(unsigned int i, unsigned int j) const {
         if (i > nodeCount || j > nodeCount){
             throw std::invalid_argument("node was not in graph!");
         }
         if (i < j){
-            if (edges[i].contains(j)) return edges[i][j];
+            if (edges[i].contains(j)) return edges[i].at(j);
         } else {
-            if (edges[j].contains(i)) return edges[j][i];
+            if (edges[j].contains(i)) return edges[j].at(i);
         }
         return -1;
     }
