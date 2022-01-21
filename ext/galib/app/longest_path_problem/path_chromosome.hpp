@@ -56,7 +56,14 @@ namespace gal {
                 if (i != 1) str += ", ";
                 str += std::to_string(prefs_[i]);
             }
-            return str + ")";
+            str += ") - [";
+            auto path = graph_ref_.computePath(prefs_);
+            str += std::to_string(path[0]) + " | ";
+            for (int i = 1; i < path.size(); i++){
+                if (i != 1) str += ", ";
+                str += std::to_string(path[i]);
+            }
+            return str + "]";
         }
 
         /**

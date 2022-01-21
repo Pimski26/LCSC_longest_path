@@ -47,9 +47,9 @@ namespace graph_lib {
     }
 
     void Graph::oneify(){
-        for (auto edgeset : edges){
-            for (auto it = edgeset.begin(); it != edgeset.end(); it++){
-                it->second = 1;
+        for (auto & edgeset : edges){
+            for (auto & it : edgeset){
+                it.second = 1;
             }
         }
     }

@@ -12,7 +12,7 @@ int main(){
     auto graph = graph_lib::getGraphByType(cfg.graph_type, cfg.graph_nodes, cfg.graph_p, seed);
     if (cfg.graph_override_ones) graph.oneify();
 
-    auto problem = LongestPathProblem(graph, cfg.random_seed);
+    auto problem = LongestPathProblem(graph, seed);
 
     auto ga = GeneticAlgorithm<PathChromosome>(
             problem,
@@ -87,8 +87,8 @@ RunParameters read_parameter_file(const std::string &filename) {
         if (std::getline(in_line, key, '=')) {
             std::string value;
             key = trim(key);
-            value = trim(value);
             if (std::getline(in_line, value)) {
+                value = trim(value);
                 if (key == "graph_type") {
                     config.graph_type = std::stoi(value);
                 } else if (key == "graph_nodes") {
