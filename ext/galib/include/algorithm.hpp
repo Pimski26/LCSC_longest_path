@@ -158,7 +158,7 @@ namespace gal {
             for(int i = 0; i < population.size(); i++){
                 chromo_indices_by_obj.push_back(i);
             }
-            // TODO: Verify this stuff works
+
             sort(chromo_indices_by_obj.begin(), chromo_indices_by_obj.end(),
                  [&objectives](int a, int b) {
                      return (objectives[a] > objectives[b]);
@@ -177,8 +177,6 @@ namespace gal {
             unsigned int elite_index = 0;
             // If there are elites, add all of them
             while(elite_index < nr_of_elites && next_generation.size() < population.size()){
-                // TODO: Allow elites to be parents
-                // TODO: Exempt elites from mutation
 
                 // Set elite property for the chromosome to be true
                 sorted_population[elite_index].setElite(true);
@@ -226,8 +224,8 @@ namespace gal {
                     auto child_b2 = C(child_a2);
 
                     // Get random position between 0 and 15;
-                    int max_pos = 16;
-                    int pos = rand() / (RAND_MAX/max_pos);
+                    int max_pos = problem_.getChromosomeLength();
+                    int pos = random_int(max_pos);
                     // Crossover
                     child_a1.crossover(pos, child_a2);
                     // Add child_a to next generation
@@ -324,7 +322,7 @@ namespace gal {
                 float roulette_test = 0;
                 int survivor_index = 0;
 
-                while (roulette_test <= roulette) {
+                while (roulette_test <= roulette && survivor_index < population_.size()) {
                     roulette_test += population_fitness[survivor_index];
                     survivor_index++;
                 }

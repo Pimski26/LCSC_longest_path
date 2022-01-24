@@ -40,7 +40,7 @@ namespace gal {
             )"));
             */
         }
-
+        int getChromosomeLength() const override {return chromosome_length_;}
     protected:
         int chromosome_length_;
     };

@@ -34,5 +34,7 @@ namespace gal {
          * represents.
          */
         virtual double evaluate(C chromosome) const = 0;
+
+        virtual int getChromosomeLength() const = 0;
     };
 }
