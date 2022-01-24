@@ -10,18 +10,20 @@ int main() {
     RunParameters cfg = read_parameter_file();
     auto problem = IntegerMaximizationProblem(cfg.chromosome_length);
 
-    int population_size_array[20] = {100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000};
+    int population_size_array[10] = {100,200,300,400,500,600,700,800,900,1000};
     double mutation_probability_array[10] = {0.001,0.002,0.005,0.01,0.02,0.05,0.1,0.2,0.5,1};
     double cross_over_probability_array[20] = {0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1};
     int nr_of_elites_array[11] = {0,20,40,60,80,100,120,140,160,180,200};
 
     // Number of runs to average over
-    int number_of_runs_to_avg = 100;
+    int number_of_runs_to_avg = 20;
+    int true_max_objective = pow(2,cfg.chromosome_length)-1;
 
     // Run numerical experiment for population size
     std::cout << "Varying population_size:" << std::endl;
     for(auto population_size : population_size_array) {
         double avg_generation = 0;
+        double avg_objective = 0;
         for(int i = 0; i < number_of_runs_to_avg; i++) {
             auto ga = GeneticAlgorithm<IntegerChromosome>(
                     problem,
@@ -36,19 +38,22 @@ int main() {
 
                 if (ga.hasConverged(cfg.convergence_threshold)
                     || ga.generation() >= cfg.nr_generations) {
-                        avg_generation += ga.generation();
+                        avg_generation  += ga.generation();
+                        avg_objective   += ga.objectiveValues().back();
                     break;
                 }
             }
         }
-        avg_generation = avg_generation/number_of_runs_to_avg;
-        std::cout << population_size << "," << avg_generation << std::endl;
+        avg_generation  = avg_generation/number_of_runs_to_avg;
+        avg_objective   = avg_objective/number_of_runs_to_avg;
+        std::cout << population_size << "," << avg_generation << "," << true_max_objective - avg_objective << std::endl;
     }
 
     // Run numerical experiment for mutation probability
     std::cout << "Varying mutation_probability:" << std::endl;
     for(auto mutation_probability : mutation_probability_array) {
         double avg_generation = 0;
+        double avg_objective = 0;
         for(int i = 0; i < number_of_runs_to_avg; i++) {
             auto ga = GeneticAlgorithm<IntegerChromosome>(
                     problem,
@@ -64,18 +69,21 @@ int main() {
                 if (ga.hasConverged(cfg.convergence_threshold)
                     || ga.generation() >= cfg.nr_generations) {
                     avg_generation += ga.generation();
+                    avg_objective   += ga.objectiveValues().back();
                     break;
                 }
             }
         }
         avg_generation = avg_generation/number_of_runs_to_avg;
-        std::cout << mutation_probability << "," << avg_generation << std::endl;
+        avg_objective   = avg_objective/number_of_runs_to_avg;
+        std::cout << mutation_probability << "," << avg_generation << "," << true_max_objective - avg_objective << std::endl;
     }
 
     // Run numerical experiment for crossover_probability
     std::cout << "Varying crossover_probability:" << std::endl;
     for(auto crossover_probability : cross_over_probability_array) {
         double avg_generation = 0;
+        double avg_objective = 0;
         for(int i = 0; i < number_of_runs_to_avg; i++) {
             auto ga = GeneticAlgorithm<IntegerChromosome>(
                     problem,
@@ -91,18 +99,21 @@ int main() {
                 if (ga.hasConverged(cfg.convergence_threshold)
                     || ga.generation() >= cfg.nr_generations) {
                     avg_generation += ga.generation();
+                    avg_objective   += ga.objectiveValues().back();
                     break;
                 }
             }
         }
         avg_generation = avg_generation/number_of_runs_to_avg;
-        std::cout << crossover_probability << "," << avg_generation << std::endl;
+        avg_objective   = avg_objective/number_of_runs_to_avg;
+        std::cout << crossover_probability << "," << avg_generation << "," << true_max_objective - avg_objective << std::endl;
     }
 
     // Run numerical experiment for nr of elites
     std::cout << "Varying nr_of_elites:" << std::endl;
     for(auto nr_of_elites : nr_of_elites_array) {
         double avg_generation = 0;
+        double avg_objective = 0;
         for(int i = 0; i < number_of_runs_to_avg; i++) {
             auto ga = GeneticAlgorithm<IntegerChromosome>(
                     problem,
@@ -118,12 +129,14 @@ int main() {
                 if (ga.hasConverged(cfg.convergence_threshold)
                     || ga.generation() >= cfg.nr_generations) {
                     avg_generation += ga.generation();
+                    avg_objective   += ga.objectiveValues().back();
                     break;
                 }
             }
         }
         avg_generation = avg_generation/number_of_runs_to_avg;
-        std::cout << nr_of_elites << "," << avg_generation << std::endl;
+        avg_objective   = avg_objective/number_of_runs_to_avg;
+        std::cout << nr_of_elites << "," << avg_generation << "," << true_max_objective - avg_objective << std::endl;
     }
 
     return 0;
