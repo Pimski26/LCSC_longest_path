@@ -227,8 +227,8 @@ namespace gal {
                     auto child_b2 = C(child_a2);
 
                     // Get random position between 0 and 15;
-                    int max_pos = 16;
-                    int pos = rand() / (RAND_MAX/max_pos);
+                    int max_pos = problem_.getChromosomeLength();
+                    int pos = random_int(max_pos);
                     // Crossover
                     child_a1.crossover(pos, child_a2);
                     // Add child_a to next generation
@@ -327,7 +327,7 @@ namespace gal {
                 float roulette_test = 0;
                 int survivor_index = 0;
 
-                while (roulette_test <= roulette) {
+                while (roulette_test <= roulette && survivor_index < population_.size()) {
                     roulette_test += population_fitness[survivor_index];
                     survivor_index++;
                 }

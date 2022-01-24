@@ -17,6 +17,7 @@ namespace gal {
         explicit LongestPathProblem(graph_lib::Graph graph, int seed)
             : graph_(graph)
         {
+            chromosome_length_ = graph_.getNodeCount() + 1;
             gen_ = std::mt19937(seed);
         }
 
