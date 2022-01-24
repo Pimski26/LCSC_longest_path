@@ -13,6 +13,7 @@
 #include <sstream>
 #include "../../include/chromosome.hpp"
 #include "../../include/util.hpp"
+#include "../../include/bitstringChromosome.h"
 
 namespace gal {
     /**
@@ -36,6 +37,14 @@ namespace gal {
             }
         }
 
+        int changeBit(int in) override {
+            if(in == 0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
         /**
          * Returns the decimal value that the bitstring represents.
          */
@@ -49,6 +58,5 @@ namespace gal {
             }
             return total;
         }
-
     };
 }

@@ -16,14 +16,15 @@ namespace gal {
      */
     class IntegerMaximizationProblem : public Problem<IntegerChromosome> {
     public:
-        explicit IntegerMaximizationProblem(int chromosome_length)
-            : chromosome_length_(chromosome_length)
-        {}
+        explicit IntegerMaximizationProblem(unsigned int chromosome_length)
+        {
+            chromosome_length_ = chromosome_length;
+        }
 
         /**
          * Constructs a new BitstringChromosome<int> suitable for representing integers.
          */
-        IntegerChromosome createChromosome() const override {
+        IntegerChromosome createChromosome() override {
             return IntegerChromosome(chromosome_length_);
         }
 
@@ -41,7 +42,5 @@ namespace gal {
             */
         }
 
-    protected:
-        int chromosome_length_;
     };
 }

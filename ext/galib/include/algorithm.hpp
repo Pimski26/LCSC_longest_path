@@ -42,7 +42,7 @@ namespace gal {
          *
          * @param problem The Problem specifying what needs to be optimised.
          * @param population_size The number of chromosomes in this population.
-         * @param mutation_probability 
+         * @param mutation_probability
          * @param crossover_probability
          */
         GeneticAlgorithm(Problem<C> &problem,
@@ -138,7 +138,7 @@ namespace gal {
          *   1. (roulette wheel) selection
          *   2. crossover on selected chromosomes to produce offspring
          */
-         //MARK --looks done
+        //MARK --looks done
         std::vector<C> reproduce(const std::vector<C> &population,
                                  const std::vector<double> &objectives,
                                  const unsigned int nr_of_elites = 0) const {
@@ -206,11 +206,11 @@ namespace gal {
                     if(cross_over_rand <= crossover_probability_){
                         parents.push_back(population[survivor_index]);
                     }
-                    // Otherwise add directly to next generation
+                        // Otherwise add directly to next generation
                     else{
                         next_generation.push_back(population[survivor_index]);
                     }
-                 }
+                }
 
                 while(parents.size() >= 2 && next_generation.size() < population.size()){
                     // Copy the first parent from end of vector
@@ -293,7 +293,7 @@ namespace gal {
          * `mutation_probability_`.
          * @param population
          */
-         //MARK --looks fine
+        //MARK --looks fine
         void mutate(std::vector<C> &population) const {
             // Loop over all chromosomes in population
             for(auto chromosome_it = population.begin(); chromosome_it != population.end(); chromosome_it++){
@@ -303,7 +303,7 @@ namespace gal {
                 } else {
                     // If not elite, mutate with probability mutation_probability_
 
-                    (*chromosome_it).mutate(mutation_probability_, ((LongestPathProblem*)&problem_)->gen_);
+                    (*chromosome_it).mutate(mutation_probability_);
                 }
             }
         }

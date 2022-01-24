@@ -26,19 +26,8 @@ namespace gal {
      * functions are defined.
      */
     template<typename T>
-    class BitstringChromosome {
+    class Chromosome {
     public:
-        /**
-         * Constructs a BitstringChromosome, initialised with a random bitstring.
-         *
-         * @param length The number of bits in this BitstringChromosome.
-         */
-        explicit BitstringChromosome(int length)
-                : bits_(length), elite_(false) {
-            for (auto &b: bits_) // initialize `bits_` randomly
-                b = getRandomBit();
-        }
-
         /**
          * Returns the represented value of this BitstringChromosome.
          * This method should always be defined in a derived class.
@@ -48,13 +37,7 @@ namespace gal {
         /**
          * Returns a string representation of the raw bitstring.
          */
-        virtual std::string getBitstringText() const {
-            std::string str;
-            for(std::list<char>::const_iterator it = bits_.begin(); it != bits_.end(); it++){
-                str += std::to_string(*it);
-            }
-            return str;
-        }
+        virtual std::string getText() const = 0;
 
         /**
          * Perform mutation, i.e. flip each bit with specified probability.
@@ -65,21 +48,18 @@ namespace gal {
             if (probability < 0.0 || probability > 1.0)
                 throw std::invalid_argument("Mutation probability has to be in [0.0, 1.0].");
 
-            for(std::list<char>::iterator it = bits_.begin(); it != bits_.end(); it++){
+            for(typename std::list<T>::iterator it = bits_.begin(); it != bits_.end(); it++){
                 // Generate a random double in [0.0, 1.0]
                 double mutation_roll = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
                 // Determine if we mutate this bit
                 if(mutation_roll <= probability){
                     // Flip the bit between 0 and 1
-                    if(*it == 0){
-                        *it = 1;
-                    }
-                    else{
-                        *it = 0;
-                    }
+                    *it = changeBit(*it);
                 }
             }
         }
+
+        virtual T changeBit(T in) = 0;
 
         /**
          * Perform crossover with another BitstringChromosome<T>, i.e. split both
@@ -93,7 +73,7 @@ namespace gal {
          * @param pos bit position where crossover takes place.
          * @param other The other 'parent' in this crossover.
          */
-        virtual void crossover(int pos, BitstringChromosome<T> &other) {
+        virtual void crossover(int pos, Chromosome<T> &other) {
             auto bits_it = bits_.begin();
             auto other_it = other.bits_.begin();
 
@@ -120,25 +100,22 @@ namespace gal {
          * Perform crossover with an other BitstringChromosome<T> at a random position.
          * @see BitstringChromosome<T>::crossover(int pos, BitstringChromosome<T>& g)
          */
-        virtual void crossover(BitstringChromosome<T> &other) {
+        virtual void crossover(Chromosome<T> &other) {
             crossover(random_int(bits_.size()), other);
         }
 
         /**
          * Returns boolean value indicating whether the chromosome is an elite
          */
-        bool isElite() {return elite_;}
+        virtual bool isElite() {return elite_;}
 
         /**
          * Sets boolean value indicating whether the chromosome is an elite
          */
-        void setElite(bool elite) {elite_ = elite;}
-    protected:
-        std::list<char> bits_;
+        virtual void setElite(bool elite) {elite_ = elite;}
 
-        static char getRandomBit() {
-            return (char) random_int(2);
-        }
+    protected:
+        std::list<T> bits_;
 
         bool elite_;
     };

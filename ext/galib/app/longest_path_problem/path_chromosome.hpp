@@ -13,6 +13,7 @@
 #include <sstream>
 #include "../../include/graph.h"
 #include "../../include/util.hpp"
+#include "../../include/chromosome.hpp"
 
 namespace gal {
     /**
@@ -20,7 +21,7 @@ namespace gal {
      * a path. Bitstring is interpreted as a reversed binary
      * number.
      */
-    class PathChromosome {
+    class PathChromosome : public Chromosome<unsigned int>{
     public:
         /**
          * Constructs a new PathChromosome and initialises it randomly.
@@ -28,13 +29,13 @@ namespace gal {
          * @param length Length of the bitstring.
          */
          //MARK -- 2 should be done
-        PathChromosome(const graph_lib::Graph & graph, std::mt19937 & gen) : graph_ref_(graph) {
+        PathChromosome(const graph_lib::Graph & graph, std::mt19937 & gen) : graph_ref_(graph), gen_(gen) {
             // Generate a random prefs_ to set a random path
             prefs_ = std::vector<unsigned int>(graph.getNodeCount()+1);
             prefs_[0] = (gen() % graph.getNodeCount()) + 1; // 1-indexed nodes.
 
             for (int i = 1; i <= graph.getNodeCount(); i++) {
-                prefs_[i] = graph.getRandomEdge(i, gen); // Select a random edge from the available ones.
+                prefs_[i] = changeBit(i); // Select a random edge from the available ones.
             }
             elite_ = false;
         }
@@ -46,11 +47,12 @@ namespace gal {
         int getPathLength() const {
             return graph_ref_.computePath(prefs_)[0];
         }
-        virtual int getValue() const { return getPathLength(); }
+
+        virtual unsigned int getValue() const  override{ return getPathLength(); }
 
 
         //MARK -- 3 should be done
-        virtual std::string getChromosomeText() const {
+        virtual std::string getText() const override {
             std::string str = "(" + std::to_string(prefs_[0]) + " | ";
             for (int i = 1; i < prefs_.size(); i++){
                 if (i != 1) str += ", ";
@@ -71,7 +73,7 @@ namespace gal {
          *
          * @param probability Probability of a single bitflip.
          */
-        virtual void mutate(double probability, std::mt19937 & gen) {
+        virtual void mutate(double probability) override {
             if (probability < 0.0 || probability > 1.0)
                 throw std::invalid_argument("Mutation probability has to be in [0.0, 1.0].");
 
@@ -83,72 +85,22 @@ namespace gal {
                 if(mutation_roll <= probability){
                     // Randomly reassign the pref[i]. Reroll randomly untill it is different.
                     auto old_pref = prefs_[i];
-                    while (old_pref == prefs_[i] && graph_ref_.getNodeEdgeSet(i).size() > 1) {
-                        prefs_[i] = graph_ref_.getRandomEdge(i, gen);
+                    if (graph_ref_.getNodeEdgeSet(i).size() > 1)
+                    while (old_pref == prefs_[i]) {
+                        prefs_[i] = changeBit(i);
                     }
                 }
             }
         }
 
-        /**
-         * Perform crossover with another BitstringChromosome<T>, i.e. split both
-         * this and the other chromosome at the same position in their
-         * bitstring, and exchange one of their halves.
-         * <pre>
-         *  chromosome 1: AAAABBB  --> AAAADDD
-         *  chromosome 2: CCCCDDD  --> CCCCBBB
-         *                    ^pos = 4 (i.e. start at 0)
-         * </pre>
-         * @param pos bit position where crossover takes place.
-         * @param other The other 'parent' in this crossover.
-         */
-        //MARK -- 4 should be done
-        virtual void crossover(int pos, PathChromosome &other) {
-            auto bits_it = prefs_.begin();
-            auto other_it = other.prefs_.begin();
-
-            // Move iterators ahead to pos
-            for(int i = 0; i < pos; i++){
-                other_it++;
-                bits_it++;
-            }
-
-            // Loop over elements beyond pos
-            while(bits_it != prefs_.end()){
-                // Swap the two elements
-                auto temp_elem = *bits_it;
-                *bits_it = *other_it;
-                *other_it = temp_elem;
-
-                other_it++;
-                bits_it++;
-            }
-
+        unsigned int changeBit(unsigned int in) override {
+            return graph_ref_.getRandomEdge(in, gen_);
         }
-
-        /**
-         * Perform crossover with an other BitstringChromosome<T> at a random position.
-         * @see BitstringChromosome<T>::crossover(int pos, BitstringChromosome<T>& g)
-         */
-        virtual void crossover(PathChromosome &other) {
-            crossover(random_int(prefs_.size()), other);
-        }
-
-        /**
-         * Returns boolean value indicating whether the chromosome is an elite
-         */
-        bool isElite() {return elite_;}
-
-        /**
-         * Sets boolean value indicating whether the chromosome is an elite
-         */
-        void setElite(bool elite) {elite_ = elite;}
-
 
     protected:
-        bool elite_;
         std::vector<unsigned int> prefs_;
         const graph_lib::Graph & graph_ref_;
+        std::mt19937 & gen_;
         // An array containing the exit node for each node in the graph
         // Its first entry contains the start node
     };

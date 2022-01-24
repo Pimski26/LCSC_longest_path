@@ -30,12 +30,12 @@ int main(){
         auto popu = ga.population(); // vector of PathChromosome
         auto iter = popu.begin(); // an iterator of this vector
         for (int i = 0; i < 5; i++) {
-            std::cout << iter->getValue() << " : " << iter->getChromosomeText() << std::endl;
+            std::cout << iter->getValue() << " : " << iter->getText() << std::endl;
             iter++;
         }
 
         std::cout << " * Objective value: " << ga.objectiveValues().back() << std::endl;
-        std::cout << " * Optimum solution: " << ga.optimum().getChromosomeText() << std::endl;
+        std::cout << " * Optimum solution: " << ga.optimum().getText() << std::endl;
 
         if (ga.hasConverged(cfg.convergence_threshold)
             || ga.generation() >= cfg.nr_generations) {
