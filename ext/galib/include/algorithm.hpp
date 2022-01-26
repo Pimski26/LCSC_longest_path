@@ -317,18 +317,18 @@ namespace gal {
             // In this case we re-spin the roulette. The other case, where total_fitness <= sum(pop_fitness) the final
             // element gets a small increase in probability to get picked. (the size of the rounding error difference)
             // This cannot be helped.
-            while(true) {
-                float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (total_fitness)));
-                float roulette_test = 0;
-                int survivor_index = 0;
 
-                while (roulette_test <= roulette && survivor_index < population_.size()) {
-                    roulette_test += population_fitness[survivor_index];
-                    survivor_index++;
-                }
+            float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (total_fitness)));
+            float roulette_test = 0;
+            int survivor_index = 0;
 
-                if (survivor_index <= population_fitness.size()) return --survivor_index;
+            while (roulette_test <= roulette && survivor_index < population_.size()) {
+                roulette_test += population_fitness[survivor_index];
+                survivor_index++;
             }
+
+            return --survivor_index;
+
         }
 
         double fitness_a = 1.0;
