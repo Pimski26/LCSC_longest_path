@@ -8,7 +8,7 @@
 
 namespace graph_lib {
     std::vector<std::vector<unsigned int>> simpleConnComp(unsigned int param = 7){
-        if (param != 9)
+        if (param != 7)
             throw std::invalid_argument("Param needs to be exactly 7 to ensure correct graph generation.");
 
         std::vector<std::vector<unsigned int>> testData = std::vector<std::vector<unsigned int>>();

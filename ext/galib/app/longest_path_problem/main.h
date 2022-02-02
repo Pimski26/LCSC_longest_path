@@ -31,6 +31,8 @@ struct RunParameters {
     double crossover_probability;  // Probability of crossover for a string
     int convergence_threshold;     // Convergence if max fitness is equal for this nr of generations
     int nr_of_elites;              // Nr of elites per generation
+    int crossover_type;
+    bool local_search;
 };
 
 /**

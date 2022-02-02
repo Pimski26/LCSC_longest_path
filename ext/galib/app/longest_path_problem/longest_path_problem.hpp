@@ -14,18 +14,20 @@ namespace gal {
 
     class LongestPathProblem : public Problem<PathChromosome> {
     public:
-        explicit LongestPathProblem(graph_lib::Graph graph, int seed)
+        explicit LongestPathProblem(graph_lib::Graph graph, int seed, int crossType = 0, bool localSearch = false)
             : graph_(graph)
         {
             chromosome_length_ = graph_.getNodeCount() + 1;
             gen_ = std::mt19937(seed);
+            crossover_type_ = crossType;
+            local_search_ = localSearch;
         }
 
         /**
          * Constructs a new PathChromosome.
          */
         PathChromosome createChromosome() override {
-            return PathChromosome(graph_, gen_);
+            return PathChromosome(graph_, gen_, crossover_type_);
         }
 
         /**
@@ -35,8 +37,10 @@ namespace gal {
             return chromo.getValue();
 
         }
+
         std::mt19937 gen_;
     protected:
         graph_lib::Graph graph_;
+        int crossover_type_;
     };
 }

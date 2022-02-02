@@ -36,6 +36,7 @@ namespace gal {
         virtual double evaluate(C chromosome) const = 0;
 
         unsigned int getChromosomeLength() {return chromosome_length_;}
+        bool local_search_;
     protected:
         unsigned int chromosome_length_;
     };

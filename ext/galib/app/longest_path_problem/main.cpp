@@ -12,7 +12,7 @@ int main(){
     auto graph = graph_lib::getGraphByType(cfg.graph_type, cfg.graph_nodes, cfg.graph_p, seed);
     if (cfg.graph_override_ones) graph.oneify();
 
-    auto problem = LongestPathProblem(graph, seed);
+    auto problem = LongestPathProblem(graph, seed, cfg.crossover_type, cfg.local_search);
 
     auto ga = GeneticAlgorithm<PathChromosome>(
             problem,
@@ -113,6 +113,10 @@ RunParameters read_parameter_file(const std::string &filename) {
                     config.convergence_threshold = std::stoi(value);
                 } else if (key == "nr_of_elites") {
                     config.nr_of_elites = std::stoi(value);
+                } else if (key == "crossover_type") {
+                    config.crossover_type = std::stoi(value);
+                } else if (key == "local_search") {
+                    config.local_search = value == "true";
                 } else {
                     throw std::runtime_error("Could not parse unknown parameter with key '" + key + "'.");
                 }

@@ -48,7 +48,7 @@ namespace gal {
             if (probability < 0.0 || probability > 1.0)
                 throw std::invalid_argument("Mutation probability has to be in [0.0, 1.0].");
 
-            for(typename std::list<T>::iterator it = bits_.begin(); it != bits_.end(); it++){
+            for(auto it = bits_.begin(); it != bits_.end(); it++){
                 // Generate a random double in [0.0, 1.0]
                 double mutation_roll = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
                 // Determine if we mutate this bit
@@ -58,6 +58,8 @@ namespace gal {
                 }
             }
         }
+
+        virtual void localSearch() = 0;
 
         virtual T changeBit(T in) = 0;
 
@@ -114,9 +116,8 @@ namespace gal {
          */
         virtual void setElite(bool elite) {elite_ = elite;}
 
+        std::vector<T> bits_;
     protected:
-        std::list<T> bits_;
-
         bool elite_;
     };
 }

@@ -39,16 +39,16 @@ namespace graph_lib{
     unsigned int determineGenSize(unsigned int nodes, double p){
         double np = nodes*p;
         if (np >= 1.1) return nodes;
-        if (np > 0.9 && np < 1.1) return 1 * nodes * sqrt(nodes); //possibly tune to a better fitting constant.
+        if (np > 0.9 && np < 1.1) return (unsigned int)(0.5 * nodes * sqrt(nodes)); //possibly tune to a better fitting constant.
         if (np <= 0.9) return std::max(1<<31, 1<<(nodes-1)); // This sounds really freaky, but the size will be log(this)...
     }
 
     Graph erdosGraphRejection(unsigned int nodes, double p, int seed) {
         srand(seed);
-        unsigned int genSize = determineGenSize(nodes, p);
+        unsigned int genSize = nodes;
         while (true){
             auto input = erdosInputGen(genSize, p, rand());
-            auto concomp = findConnectedComponents(input, nodes);
+            auto concomp = findConnectedComponents(input, genSize);
             auto largestcomp = *std::max_element(concomp.begin(), concomp.end(), sizeCompare<unsigned int>);
             // Found largest component of random graph of size n^3/2, if its correct size, output.
             if (largestcomp.size() == nodes){
@@ -64,7 +64,10 @@ namespace graph_lib{
                         newInput.push_back(newEdge); //if it is contained, build a new edge like t(i), t(j), w.
                     }
                 }
-                return Graph(input, nodes);
+                return Graph(newInput, nodes);
+            } else {
+                if (largestcomp.size() > nodes) genSize-= largestcomp.size() / nodes;
+                if (largestcomp.size() < nodes) genSize+= nodes / largestcomp.size();
             }
         }
     }

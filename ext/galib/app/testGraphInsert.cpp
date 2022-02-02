@@ -28,9 +28,9 @@ namespace graph_lib{
 
     void testErdosGeneration(){
         auto g1 = erdosGraphRecursive(10, 0.3, 0);
-        1 + 1;
-        auto g2 = erdosGraphRejection(10, 0.3, 0);
-        2 + 2;
+        ;//Breakpoint line to inspect g1 in debug
+        auto g2 = erdosGraphRejection(10, 0.1, 4);
+        ;//Breakpoint line to inspect g2 in debug
     }
 }
 

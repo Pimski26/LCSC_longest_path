@@ -138,7 +138,6 @@ namespace gal {
          *   1. (roulette wheel) selection
          *   2. crossover on selected chromosomes to produce offspring
          */
-        //MARK --looks done
         std::vector<C> reproduce(const std::vector<C> &population,
                                  const std::vector<double> &objectives,
                                  const unsigned int nr_of_elites = 0) const {
@@ -153,13 +152,20 @@ namespace gal {
                 throw std::logic_error("The nr of elites can at most be the size of the population.");
             }
 
+
+            if (problem_.local_search_) {
+                for (auto chrom : population)
+                    chrom.localSearch();
+            }
+
             // Create list of numbers 0,1,...,population.size()-1
             // Sort these population indices by objective values of corresponding chromosomes
             std::vector<int> chromo_indices_by_obj;
             for(int i = 0; i < population.size(); i++){
                 chromo_indices_by_obj.push_back(i);
             }
-            // TODO: Verify this stuff works
+
+
             sort(chromo_indices_by_obj.begin(), chromo_indices_by_obj.end(),
                  [&objectives](int a, int b) {
                      return (objectives[a] > objectives[b]);
@@ -226,20 +232,15 @@ namespace gal {
                     auto child_b1 = C(child_a1);
                     auto child_b2 = C(child_a2);
 
-                    // Get random position between 0 and 15;
-                    int max_pos = problem_.getChromosomeLength();
-                    int pos = random_int(max_pos);
                     // Crossover
-                    child_a1.crossover(pos, child_a2);
+                    child_a1.crossover(child_a2);
                     // Add child_a to next generation
                     next_generation.push_back(child_a1);
 
                     // Check if there is room for second child
                     if(next_generation.size() < population.size()){
                         // Get random position between 0 and 15;
-                        int pos = rand() / (RAND_MAX/max_pos);
-                        // Crossover
-                        child_b1.crossover(pos, child_b2);
+                        child_b1.crossover(child_b2);
                         // Add child_b to next generation
                         next_generation.push_back(child_b1);
                     }
@@ -267,8 +268,6 @@ namespace gal {
                     min = *obj_it;
                 }
             }
-            //MARK --Looks fine
-            // Return vector with only values fitness_b if min and max are equal
             if(min == max){
                 std::vector<double> fitness;
                 for(auto obj_it = objectives.begin(); obj_it!= objectives.end(); obj_it++){
@@ -288,12 +287,18 @@ namespace gal {
             }
         }
 
+
+        void localSearch(std::vector<C> & population) {
+            for (auto chromosome_it = population_.begin(); chromosome_it != population_.end(); chromosome_it++){
+                (*chromosome_it).localSearch();
+            }
+        }
+
         /**
          * Mutate the bits of each chromosome in the population with probability
          * `mutation_probability_`.
          * @param population
          */
-        //MARK --looks fine
         void mutate(std::vector<C> &population) const {
             // Loop over all chromosomes in population
             for(auto chromosome_it = population.begin(); chromosome_it != population.end(); chromosome_it++){

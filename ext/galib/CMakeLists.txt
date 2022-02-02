@@ -20,3 +20,6 @@ target_link_libraries(testGraphInsert graph_lib)
 # Add executable for longest_path problem and link to graph_lib and gal
 add_executable(longest_path_problem app/longest_path_problem/main.cpp)
 target_link_libraries(longest_path_problem graph_lib gal)
+
+add_executable(max_path_num_exp app/longest_path_problem/path_max_numerical_experiments.cpp)
+target_link_libraries(max_path_num_exp graph_lib gal)
