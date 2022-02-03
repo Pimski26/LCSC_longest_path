@@ -163,12 +163,12 @@ namespace gal {
             unsigned int bestUpgradeIndex = 0;
             unsigned int bestUpgradeParam = 0;
             unsigned int bestLength = 0;
-            auto testPrefs_ = std::vector<unsigned int>(bits_);
+            auto testBits_ = std::vector<unsigned int>(bits_);
             // Copy the preferences, then loop over each of the indices in the bits, and change *only that bit* to each
             // possible value, track whichever change has the best result globally, then make only that bit change.
             for (int i = 1; i < bits_.size(); i++){
-                testPrefs_[0] = i;
-                auto pathL = graph_ref_.computePath(testPrefs_)[0];
+                testBits_[0] = i;
+                auto pathL = graph_ref_.computePath(testBits_)[0];
                 if (pathL > bestLength)
                 {
                     bestLength = pathL;
@@ -177,10 +177,10 @@ namespace gal {
             }
             for (int i = 1; i < bits_.size(); i++){
                 //Reset the previous bit that we handled to the original value.
-                testPrefs_[i-1] = bits_[i-1];
+                testBits_[i - 1] = bits_[i - 1];
                 for (auto edge : graph_ref_.getNodeEdgeSet(i)){
-                    testPrefs_[i] = edge.first;
-                    auto pathL = graph_ref_.computePath(testPrefs_)[0];
+                    testBits_[i] = edge.first;
+                    auto pathL = graph_ref_.computePath(testBits_)[0];
                     if (pathL > bestLength)
                     {
                         bestUpgradeIndex = i;
