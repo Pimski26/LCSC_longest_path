@@ -32,13 +32,13 @@ std::pair<double, double> runGA(int runs, gal::LongestPathProblem::Problem & pro
     return {avg_generation / runs, avg_objective / runs};
 }
 
-void runTests(std::string st, gal::LongestPathProblem::Problem & problem, RunParameters & cfg,
-              int number_of_runs_to_avg,
-              std::vector<int> &population_size_array,
-              std::vector<double> &mutation_probability_array,
-              std::vector<double> &cross_over_probability_array,
-              std::vector<int> &nr_of_elites_array,
-              bool selectOpt){
+void runParamTests(std::string st, gal::LongestPathProblem::Problem & problem, RunParameters & cfg,
+                   int number_of_runs_to_avg,
+                   std::vector<int> &population_size_array,
+                   std::vector<double> &mutation_probability_array,
+                   std::vector<double> &cross_over_probability_array,
+                   std::vector<int> &nr_of_elites_array,
+                   bool selectOpt){
     std::cout<<st << "Varying population_size:" << std::endl;
     double bestObjective = 0;
     double convergeTime = 0;
@@ -159,12 +159,12 @@ void naiveTests(){
             std::cout<<"\t" << "[" <<std::endl;
             std::string st = "\t\t";
 
-            runTests(st, problem, cfg, number_of_runs_to_avg,
-                     population_size_array,
-                     mutation_probability_array,
-                     cross_over_probability_array,
-                     nr_of_elites_array,
-                     true);
+            runParamTests(st, problem, cfg, number_of_runs_to_avg,
+                          population_size_array,
+                          mutation_probability_array,
+                          cross_over_probability_array,
+                          nr_of_elites_array,
+                          true);
 
             std::cout<<"\t" << ")" << std::endl;
             // End graph params
@@ -198,12 +198,12 @@ void cfgTests(){
             std::cout<<"\t" << "[" <<std::endl;
             std::string st = "\t\t";
 
-            runTests(st, problem, cfg, number_of_runs_to_avg,
-                     population_size_array,
-                     mutation_probability_array,
-                     cross_over_probability_array,
-                     nr_of_elites_array,
-                     true);
+            runParamTests(st, problem, cfg, number_of_runs_to_avg,
+                          population_size_array,
+                          mutation_probability_array,
+                          cross_over_probability_array,
+                          nr_of_elites_array,
+                          true);
 
             std::cout<<"\t" << ")" << std::endl;
             // End graph params
@@ -213,9 +213,43 @@ void cfgTests(){
     }
 }
 
+void runTimedAlgTests(int runs, graph_lib::Graph & graph, RunParameters & cfg, int seed){
+    std::vector<bool> localSearch = {false, false, false, false, true};
+    std::vector<int> crossType = {0, 1, 2, 3, 0};
+    for (int i = 0; i < localSearch.size(); i++) {
+        cfg.local_search = localSearch[i];
+        cfg.crossover_type = crossType[i];
+        auto problem = LongestPathProblem(graph, seed, cfg.crossover_type, cfg.local_search);
+        std::cout << localSearch[i] << ", " << crossType[i] << ": \t";
+        auto start = std::chrono::system_clock::now();
+
+        auto ret = runGA(runs, problem, cfg);
+
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end - start;
+        std::cout << ret.first << ", " << ret.second << ", " << elapsed_seconds.count() << std::endl;
+    }
+}
+
+void graphExTests(){
+    std::vector<unsigned int> graphTypes = {2, 3, 4, 5, 6};
+    std::vector<int> graphNodes = {9, 25, 25, 25, 25};
+    std::vector<int> seeds = {1, 2, 3, 4, 5};
+    RunParameters cfg = read_parameter_file();
+    int runs_to_avg = 10;
+    for (int i = 0; i < graphTypes.size(); i++) {
+        auto graph = graph_lib::getGraphByType(graphTypes[i], graphNodes[i], 0, 0);
+        std::cout<< "graph : " << i << " [" << std::endl;
+        runTimedAlgTests(runs_to_avg, graph, cfg, seeds[i]);
+        std::cout<< "]" << std::endl;
+    }
+
+}
+
 int main() {
     //naiveTests();
-    cfgTests();
+    //cfgTests();
+    graphExTests();
     return 0;
 }
 
