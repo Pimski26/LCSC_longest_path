@@ -246,10 +246,28 @@ void graphExTests(){
 
 }
 
+void graphRandomTests(){
+    std::vector<unsigned int> graphTypes = {0, 0, 0, 1, 1, 1};
+    std::vector<int> graphNodes = {10, 25, 50, 10, 25, 50};
+    std::vector<double> graphPs = {0.1, 0.05, 0.02, 0.1, 0.05, 0.02};
+    std::vector<int> seeds = {1, 2, 3, 4, 5, 6};
+    RunParameters cfg = read_parameter_file();
+    int runs_to_avg = 10;
+    for (int i = 0; i < graphTypes.size(); i++) {
+        auto graph = graph_lib::getGraphByType(graphTypes[i], graphNodes[i], graphPs[i], 0);
+        std::cout<< "graph : " << i << " [" << std::endl;
+        runTimedAlgTests(runs_to_avg, graph, cfg, seeds[i]);
+        std::cout<< "]" << std::endl;
+    }
+
+}
+
+
 int main() {
     //naiveTests();
     //cfgTests();
-    graphExTests();
+    //graphExTests();
+    graphRandomTests();
     return 0;
 }
 
