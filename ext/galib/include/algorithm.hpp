@@ -234,7 +234,7 @@ namespace gal {
                     // Check if there is room for second child
                     if(next_generation.size() < population.size()){
                         // Get random position between 0 and 15;
-                        int pos = rand() / (RAND_MAX/max_pos);
+                        int pos = random_int(max_pos);
                         // Crossover
                         child_b1.crossover(pos, child_b2);
                         // Add child_b to next generation
@@ -313,7 +313,7 @@ namespace gal {
         int select(std::vector<double> &population_fitness, double &total_fitness) const {
             // Use roulette method to select survivor
 
-            float roulette = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (total_fitness)));
+            float roulette = random_real(0, total_fitness);
             float roulette_test = 0;
             int survivor_index = 0;
 
